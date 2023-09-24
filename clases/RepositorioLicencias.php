@@ -1,6 +1,6 @@
 <?php 
 
-require_once 'Usuario.php';
+require_once 'Persona.php';
 require_once '.env.php';
 
 class RepositorioLicencias{
@@ -15,7 +15,7 @@ private static $conexion = null;
                 $credenciales['servidor'],
                 $credenciales['usuario'],
                 $credenciales['clave'],
-                $credenciales['base_de_datos']
+                $credenciales['base_de_datos']  
             );
             if (self::$conexion->connect_error){
                 $error = 'Error al conectar:' . self::$conexion->connect_error;
