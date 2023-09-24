@@ -44,5 +44,5 @@ class RepositorioPersona{
 			}
 		}
 		return false;
-	}
+	} 
 }
