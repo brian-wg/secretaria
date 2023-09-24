@@ -70,7 +70,7 @@ private static $conexion = null;
         $anyo = $l->getAnyo();
         $comision = $l->getComision();
         
-        if(!$query->bind_param("sisi", $fecha_inicio, $fecha_fin, $persona,
+        if(!$query->bind_param("ssiiss", $fecha_inicio, $fecha_fin, $persona,
         $anyo, $comision)){
             echo "fallo la consulta";
         }
