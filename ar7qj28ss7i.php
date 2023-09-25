@@ -100,45 +100,51 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
 
     <form action="ar7qj28ss7i.php" method="post">
     <div class="form-floating">
-      <input name="nombre" class="form-control" id="floatingInput" placeholder="Nombre">
-      <label for="floatingInput" required>Nombre</label>
+      <input name="nombre" class="form-control" id="floatingInput" placeholder="Nombre" required>
+      <label for="floatingInput">Nombre</label>
     </div>
     <div class="form-floating">
-      <input name="apellido" class="form-control" id="floatingInput" placeholder="Apellido">
-      <label for="floatingInput" required>Apellido</label>
+      <input name="apellido" class="form-control" id="floatingInput" placeholder="Apellido" required>
+      <label for="floatingInput">Apellido</label>
     </div>
     <div class="form-floating">
-      <input name="dni" type="number" class="form-control" id="floatingInput" placeholder="Dni">
-      <label for="floatingInput" required>Dni</label>
+      <input name="dni" type="number" class="form-control" id="floatingInput" placeholder="Dni" required>
+      <label for="floatingInput">Dni</label>
     </div>
      <div class="form-floating">
-      <input name="email" type="email" required class="form-control" id="floatingInput" placeholder="Email">
+      <input name="email" type="email" required class="form-control" id="floatingInput" placeholder="Email" required>
       <label for="floatingEmail" >Email</label>
     </div>
     <div class="form-floating">
-      <input name="telefono" type="number" class="form-control" id="floatingInput" placeholder="Telefono">
-      <label for="floatingInput" required>Telefono</label>
+      <input name="telefono" type="number" class="form-control" id="floatingInput" placeholder="Telefono" required>
+      <label for="floatingInput">Telefono</label>
     </div>
     <div class="form-floating">
-      <input name="domicilio" class="form-control" id="floatingInput" placeholder="Domicilio">
-      <label for="floatingInput" required>Domicilio</label>
+      <input name="domicilio" class="form-control" id="floatingInput" placeholder="Domicilio" required>
+      <label for="floatingInput">Domicilio</label>
+    </div>
+    <div class="form-control"><label>Situación de revista</label>
+              <select name="situacion_revista">
+                <option value="1">Titular</option>          
+                <option value="2">Suplente</option>         
+                <option value="3">Interino</option>                                   
+              </select>
     </div>
     <div class="form-floating">
-      <input name="situacion_revista" class="form-control" id="floatingInput" placeholder="Situacion Revista">
-      <label for="floatingInput">Situacion Revista</label>
-    </div>
-    <div class="form-floating">
-      <input name="fecha_toma_posicion" type="date" required class="form-control" id="floatingInput" placeholder="Fecha toma posicion">
+      <input name="fecha_toma_posicion" type="date" required class="form-control" id="floatingInput" placeholder="Fecha toma posicion" required>
       <label for="floatingInput">Fecha toma posicion</label>
     </div>
         <div class="form-floating">
-      <input name="clave" class="form-control" id="floatingPassword" type="password" placeholder="Clave">
-      <label for="floatingPassowrd" required>Clave</label>
+      <input name="clave" class="form-control" id="floatingPassword" type="password" placeholder="Clave" required>
+      <label for="floatingPassowrd">Clave</label>
     </div>
-    <div class="form-floating">
-      <input name="rol" class="form-control" id="floatingInput" placeholder="Rol">
-      <label for="floatingInput" >Rol</label>
+    <div class="form-control"><label>Rol</label>
+              <select name="situacion_revista">
+                <option value="1">Docente</option>          
+                <option value="2">Secretario/a</option>                                            
+              </select>
     </div>
+  
     <input type="submit" value="Registrarse" class="btn btn-primary" style="margin:15px">
   </form>
 </main>
