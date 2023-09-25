@@ -13,18 +13,19 @@ class Persona{
     protected $fecha_toma_posicion;
     protected $rol;
 
-	public function __construct ($id_persona, $nombre, $apellido, $dni,
-    $email, $telefono, $domicilio, $situacion_revista, $fecha_toma_posicion $id_persona = null){
+	public function __construct ($nombre, $apellido, $dni,
+    $email, $telefono, $domicilio, $situacion_revista, $fecha_toma_posicion,
+     $rol, $id_persona = null){
 
 		$this->id_persona = $id_persona;
 		$this->nombre = $nombre;
 		$this->apellido = $apellido;
-        $this->dni = $dni
-		$this->email = $email
-        $this->telefono = $telefono
-        $this->domicilio = $domicilio
-        $this->situacion_revista = $situacion_revista
-        $this->fecha_toma_posicion = $fecha_toma_posicion
+        $this->dni = $dni;
+		$this->email = $email;
+        $this->telefono = $telefono;
+        $this->domicilio = $domicilio;
+        $this->situacion_revista = $situacion_revista;
+        $this->fecha_toma_posicion = $fecha_toma_posicion;
         $this->rol = $rol;
 	}
 
@@ -40,8 +41,17 @@ class Persona{
     public function getApellido() {
     	return $this->apellido;
     }
+    public function getDni() {
+        return $this->dni;
+    }
     public function getEmail() {
     	return $this->email;
+    }
+    public function getTelefono() {
+        return $this->telefono;
+    }
+    public function getDomicilio() {
+        return $this->domicilio;
     }
     public function getSituacionRevista() {
         return $this->situacion_revista;

@@ -32,7 +32,7 @@ class RepositorioPersona{
 		$query->bind_param('s', $email);
 
 		if ($query->execute()){
-			$query->bind_result($id_persona, $nombre, $apellido, $dni, $email, $telefono
+			$query->bind_result($id_persona, $nombre, $apellido, $dni, $email, $telefono,
 			$domicilio, $situacion_revista, $fecha_toma_posicion, $clave_encriptada, $rol   
 			);
 			if ($query->fetch()) {
@@ -45,4 +45,41 @@ class RepositorioPersona{
 		}
 		return false;
 	} 
+
+	public function save(Persona $persona, $clave){
+
+		$q = "INSERT INTO persona (nombre, apellido, dni, email, telefono, domicilio, 
+		situacion_revista, fecha_toma_posicion, clave, rol)";
+		$q.= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$query = self::$conexion->prepare($q);
+		$nombre = $persona->getNombre();
+		$apellido = $persona->getApellido();
+		$dni = $persona->getDni();
+		$email = $persona->getEmail();
+		$telefono = $persona->getTelefono();
+		$domicilio = $persona->getDomicilio();
+		$situacion_revista = $persona->getSituacionRevista();
+		$fecha_toma_posicion = $persona->getFechaTomaPosicion();
+		$clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
+		$rol = $persona->getRol();	
+			$query->bind_param("ssisisssss",
+			$nombre,
+			$apellido,
+			$dni,
+			$email,
+			$telefono,
+			$domicilio,
+			$situacion_revista,
+			$fecha_toma_posicion,
+			$clave_encriptada,
+			$rol
+		);
+
+		if ($query->execute()){
+		return self::$conexion->insert_id;
+		} else{
+
+			return false;
+		}
+	}
 }
