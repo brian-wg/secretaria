@@ -1,8 +1,8 @@
 <?php
 require_once 'clases/ControladorSesion.php';
-if (isset($_POST['email']) && isset($_POST['clave'])) {
+if (isset($_POST['usuario']) && isset($_POST['clave'])) {
     $cs = new ControladorSesion();
-    $result = $cs->create($_POST['nombre'], $_POST['apellido'], 
+    $result = $cs->create($_POST['usuario'], $_POST['nombre'], $_POST['apellido'], 
                           $_POST['dni'], $_POST['email'],
                           $_POST['telefono'], $_POST['domicilio'],
                           $_POST['situacion_revista'], $_POST['fecha_toma_posicion'],
@@ -100,6 +100,10 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
 
     <form action="ar7qj28ss7i.php" method="post">
     <div class="form-floating">
+      <input name="usuario" class="form-control" id="floatingInput" placeholder="Usuario" required>
+      <label for="floatingInput">Usuario</label>
+    </div>
+    <div class="form-floating">
       <input name="nombre" class="form-control" id="floatingInput" placeholder="Nombre" required>
       <label for="floatingInput">Nombre</label>
     </div>
@@ -125,9 +129,9 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
     </div>
     <div class="form-control"><label>Situación de revista</label>
               <select name="situacion_revista">
-                <option value="1">Titular</option>          
-                <option value="2">Suplente</option>         
-                <option value="3">Interino</option>                                   
+                <option value="titular">Titular</option>          
+                <option value="suplente">Suplente</option>         
+                <option value="interino">Interino</option>                                   
               </select>
     </div>
     <div class="form-floating">
@@ -139,9 +143,9 @@ if (isset($_POST['email']) && isset($_POST['clave'])) {
       <label for="floatingPassowrd">Clave</label>
     </div>
     <div class="form-control"><label>Rol</label>
-              <select name="situacion_revista">
-                <option value="1">Docente</option>          
-                <option value="2">Secretario/a</option>                                            
+              <select name="rol">
+                <option value="docente">Docente</option>          
+                <option value="secretario">Secretario/a</option>                                            
               </select>
     </div>
   

@@ -26,19 +26,19 @@ class RepositorioPersona{
 		}
 	}
 
-	public function login($email, $clave){
-		$q = "SELECT * FROM persona WHERE email = ?";
+	public function login($nombre_usuario, $clave){
+		$q = "SELECT * FROM persona WHERE usuario = ?";
 		$query = self::$conexion->prepare($q);
-		$query->bind_param('s', $email);
+		$query->bind_param('s', $nombre_usuario);
 
 		if ($query->execute()){
-			$query->bind_result($id_persona, $nombre, $apellido, $dni, $email, $telefono,
+			$query->bind_result($id_persona, $usuario, $nombre, $apellido, $dni, $email, $telefono,
 			$domicilio, $situacion_revista, $fecha_toma_posicion, $clave_encriptada, $rol   
 			);
 			if ($query->fetch()) {
 				if (password_verify($clave, $clave_encriptada)){
 
-					return new Persona($nombre, $apellido, $dni, $email, $telefono,
+					return new Persona($usuario, $nombre, $apellido, $dni, $email, $telefono,
 					$domicilio, $situacion_revista, $fecha_toma_posicion, $rol);
 				}
 			}
@@ -46,23 +46,25 @@ class RepositorioPersona{
 		return false;
 	} 
 
-	public function save(Persona $persona, $clave){
+	public function save(Persona $usuario, $clave){
 
-		$q = "INSERT INTO persona (nombre, apellido, dni, email, telefono, domicilio, 
+		$q = "INSERT INTO persona (usuario, nombre, apellido, dni, email, telefono, domicilio, 
 		situacion_revista, fecha_toma_posicion, clave, rol)";
-		$q.= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$q.= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$query = self::$conexion->prepare($q);
-		$nombre = $persona->getNombre();
-		$apellido = $persona->getApellido();
-		$dni = $persona->getDni();
-		$email = $persona->getEmail();
-		$telefono = $persona->getTelefono();
-		$domicilio = $persona->getDomicilio();
-		$situacion_revista = $persona->getSituacionRevista();
-		$fecha_toma_posicion = $persona->getFechaTomaPosicion();
+		$nombre_usuario = $usuario->getUsuario();
+		$nombre = $usuario->getNombre();
+		$apellido = $usuario->getApellido();
+		$dni = $usuario->getDni();
+		$email = $usuario->getEmail();
+		$telefono = $usuario->getTelefono();
+		$domicilio = $usuario->getDomicilio();
+		$situacion_revista = $usuario->getSituacionRevista();
+		$fecha_toma_posicion = $usuario->getFechaTomaPosicion();
 		$clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
-		$rol = $persona->getRol();	
-			$query->bind_param("ssisisssss",
+		$rol = $usuario->getRol();	
+			$query->bind_param("sssdsdsssss",
+			$nombre_usuario,	
 			$nombre,
 			$apellido,
 			$dni,
@@ -79,7 +81,7 @@ class RepositorioPersona{
 		return self::$conexion->insert_id;
 		} else{
 
-			return false;
+			die("Error en la ejecución de la consulta: " . $query->error);
 		}
 	}
 }

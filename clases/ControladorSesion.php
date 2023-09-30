@@ -6,38 +6,52 @@ require_once 'Licencia.php';
 
 class ControladorSesion{
 
-	protected $email = null;
+	protected $usuario = null;
 
-	public function login($email, $clave){
+	public function login($nombre_usuario, $clave){
 
 		$r = new RepositorioPersona();
-		$persona = $r->login($email, $clave);
+		$usuario = $r->login($nombre_usuario, $clave);
 
-		if ($persona === false){
-			return [false, "email o clave incorrecta"];
+		if ($usuario === false){
+			return [false, "usuario o clave incorrecta"];
 		}
 		else {
 			session_start();
-			$_SESSION['email'] = serialize($email);
+			$_SESSION['usuario'] = serialize($usuario);
 			return [true, "Ingreso correcto"];
 		}
 	}
 
-	public function create($nombre, $apellido, $dni, $email, $telefono,
+	public function create($nombre_usuario, $nombre, $apellido, $dni, $email, $telefono,
 	$domicilio, $situacion_revista, $fecha_toma_posicion, $clave, $rol){
 
 		$r = new RepositorioPersona();
-		$persona = new Persona($nombre, $apellido, $dni, $email, $telefono, $domicilio, $situacion_revista, $fecha_toma_posicion, $rol);
-		$id = $r->save($persona, $clave);
+		$usuario = new Persona($nombre_usuario, $nombre, $apellido, $dni, $email, $telefono, $domicilio, $situacion_revista, $fecha_toma_posicion, $rol);
+		$id = $r->save($usuario, $clave);
 		if ($id ===false) {
 			return [false, "No se pudo crear el usuario"];
 		} 
 		else {
-			$persona->setIdPersona($id);
+			$usuario->setId($id);
 			session_start();
-			$_SESSION['email'] = serialize($persona);
+			$_SESSION['usuario'] = serialize($usuario);
 			return [true, "Usuario creado con exito!"];
 		}
 	}
+
+	public function modificarFechaInicio($fecha_inicio, licencia $licencia)
+    {
+        $repo = new RepositorioLicencia();
+        $licencia->setDatos($fecha_inicio);
+
+        if ($repo->updateFechaInicio($fecha_inicio, $licencia)) {
+            session_start();
+            $_SESSION['usuario'] = serialize($usuario);
+            return [true, "Datos actualizados correctamente"];
+        } else {
+            return [false, "Error al actualizar datos"];
+        }
+    }
 }
  ?>
