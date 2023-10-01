@@ -97,8 +97,7 @@ private static $conexion = null;
         
 
     }
-    // COMENTADO HASTA QUE SE DEBA USAR ESTE METODO. MUY PROBABLEMENTE PARA SER MODIFICADO
-    /*public function getLicenciasSecretario(Persona $usuario)
+    public function getLicenciasSecretario(Persona $usuario)
     {
         $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
@@ -119,7 +118,7 @@ private static $conexion = null;
         return false;
         
 
-    }*/
+    }
 
     public function getFechaInicioAnterior($id){
         $q = "SELECT fecha_inicio FROM licencias WHERE id_licencia = ?";
