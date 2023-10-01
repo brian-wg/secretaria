@@ -12,9 +12,7 @@ if (isset($_SESSION['usuario'])) {
     
     $usuario = unserialize($_SESSION['usuario']);
 
-    $id = $usuario->getId();
-    $rl = new RepositorioLicencia();
-    $licencias = $rl->getLicencias($usuario);
+    $id = $usuario->getIdUsuario();
 
     
 

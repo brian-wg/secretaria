@@ -33,7 +33,7 @@ class ControladorSesion{
 			return [false, "No se pudo crear el usuario"];
 		} 
 		else {
-			$usuario->setId($id);
+			$usuario->setIdUsuario($id);
 			session_start();
 			$_SESSION['usuario'] = serialize($usuario);
 			return [true, "Usuario creado con exito!"];
@@ -43,9 +43,51 @@ class ControladorSesion{
 	public function modificarFechaInicio($fecha_inicio, licencia $licencia)
     {
         $repo = new RepositorioLicencia();
-        $licencia->setDatos($fecha_inicio);
+        $licencia->setFechaInicio($fecha_inicio);
 
         if ($repo->updateFechaInicio($fecha_inicio, $licencia)) {
+            session_start();
+            $_SESSION['usuario'] = serialize($usuario);
+            return [true, "Datos actualizados correctamente"];
+        } else {
+            return [false, "Error al actualizar datos"];
+        }
+    }
+
+	public function modificarFechaFin($fecha_fin, Licencia $licencia)
+    {
+        $repo = new RepositorioLicencia();
+        $licencia->setFechaFin($fecha_fin);
+
+        if ($repo->updateFechaFin($fecha_fin, $licencia)) {
+            session_start();
+            $_SESSION['usuario'] = serialize($usuario);
+            return [true, "Datos actualizados correctamente"];
+        } else {
+            return [false, "Error al actualizar datos"];
+        }
+    }
+
+	public function modificarEstado($estado, Licencia $licencia)
+    {
+        $repo = new RepositorioLicencia();
+        $licencia->setEstado($estado);
+
+        if ($repo->updateEstado($estado, $licencia)) {
+            session_start();
+            $_SESSION['usuario'] = serialize($usuario);
+            return [true, "Datos actualizados correctamente"];
+        } else {
+            return [false, "Error al actualizar datos"];
+        }
+    }
+
+	public function modificarTipoLicencia($id_tipo_licencia, Licencia $licencia)
+    {
+        $repo = new RepositorioLicencia();
+        $licencia->setTipoLicencia($id_tipo_licencia);
+
+        if ($repo->update($id_tipo_licencia, $licencia)) {
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
             return [true, "Datos actualizados correctamente"];

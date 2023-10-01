@@ -36,9 +36,10 @@ if (isset($_SESSION['usuario'])) {
     <p align="right"><a href="logout.php">Cerrar sesión</a></p>
     </div>
     <body class="text-center">
-     <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Docente</h1><br> 
+     <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Secretario</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
         <a  href="insertar.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
+        <a  href="gestionarlicencias.php" class="w-10 btn btn-lg btn-primary">Gestionar Licencias</a>
     </body>
 </html>
