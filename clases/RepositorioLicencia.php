@@ -27,40 +27,16 @@ private static $conexion = null;
     }
 
 
-
-    public function getLicencias(Persona $usuario)
-    {
-        $q = "SELECT l.id_licencia, l.fecha_inicio, l.fecha_fin, p.nombre, estado FROM licencias l
-INNER JOIN persona p ON l.id_persona = p.id_persona
- WHERE p.id_persona = ?";
-        $query = self::$conexion->prepare($q);
-        $id = $usuario->getId();
-        $query->bind_param('d', $id);
-
-        if ($query->execute()){
-            $query->bind_result($id_licencia, $fecha_inicio, $fecha_fin, $nombre_persona, $estado);
-            $lista_de_licencias = [];
-            while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($id_licencia, $fecha_inicio, $fecha_fin, $nombre_persona, $estado);                
-            }
-            return $lista_de_licencias;
-        }
-        return false;
-        
-
-    }
-
-
- public function agregar(Licencia $l, $usuario){
+ public function agregarSecretario(Licencia $l){ //Funcion para agregar licencia como secretario
     
         $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia) VALUES (?, ?, ?, ?, ?)";
         $query = self::$conexion->prepare($q);
 
         $fecha_inicio = $l->getFechaInicio();
         $fecha_fin = $l->getFechaFin();
-        $usuario_id = $usuario->getId(); 
+        $usuario_id = $l->getIdPersona(); 
         $estado = $l->getEstado();
-        $id_tipo_licencia = $l->getId();
+        $id_tipo_licencia = $l->getTipoLicencia();
         
         if(!$query->bind_param("ssdsd", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia
         )){
@@ -71,18 +47,89 @@ INNER JOIN persona p ON l.id_persona = p.id_persona
             return true;
         } else {
             die("Error en la ejecución de la consulta: " . $query->error);
+
         }
     }
 
-    public function getCantidadAnterior($id){
-        $q = "SELECT licencias FROM licencias WHERE id_producto = ?";
+ public function agregarDocente(Licencia $l, $usuario){ //Funcion para agregar licencia como Docente
+    
+        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia) VALUES (?, ?, ?, ?, ?)";
+        $query = self::$conexion->prepare($q);
+
+        $fecha_inicio = $l->getFechaInicio();
+        $fecha_fin = $l->getFechaFin();
+        $usuario_id = $usuario->getIdUsuario(); 
+        $estado = $l->getEstado();
+        $id_tipo_licencia = $l->getTipoLicencia();
+        
+        if(!$query->bind_param("ssdsd", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia
+        )){
+            echo "fallo la consulta";
+        }
+
+        if ($query->execute()) {
+            return true;
+        } else {
+            die("Error en la ejecución de la consulta: " . $query->error);
+
+        }
+    }
+
+    public function getLicencias(Persona $usuario)
+    {
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
+            INNER JOIN licencias l ON p.id_persona = l.id_persona
+            INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
+            WHERE p.id_persona= ?";
+        $query = self::$conexion->prepare($q);
+        $id = $usuario->getIdUsuario();
+        $query->bind_param('d', $id);
+
+        if ($query->execute()){
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);
+            $lista_de_licencias = [];
+            while ($query->fetch()) {
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);                
+            }
+            return $lista_de_licencias;
+        }
+        return false;
+        
+
+    }
+    // COMENTADO HASTA QUE SE DEBA USAR ESTE METODO. MUY PROBABLEMENTE PARA SER MODIFICADO
+    /*public function getLicenciasSecretario(Persona $usuario)
+    {
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
+            INNER JOIN licencias l ON p.id_persona = l.id_persona
+            INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
+            WHERE p.id_persona = ?";
+        $query = self::$conexion->prepare($q);
+        $id = $usuario->getIdUsuario();
+        $query->bind_param('d', $id);
+
+        if ($query->execute()){
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);
+            $lista_de_licencias = [];
+            while ($query->fetch()) {
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);                
+            }
+            return $lista_de_licencias;
+        }
+        return false;
+        
+
+    }*/
+
+    public function getFechaInicioAnterior($id){
+        $q = "SELECT fecha_inicio FROM licencias WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
         $query->bind_param('d', $id);
-        $query->bind_result($cantidad);
+        $query->bind_result($fecha_inicio);
         if ($query->execute()){
             if($query->fetch()){
-            return $cantidad;    
+            return $fecha_inicio;    
             }
         }
             return false;
@@ -104,6 +151,20 @@ INNER JOIN persona p ON l.id_persona = p.id_persona
     
     }
 
+    public function getFechaFinAnterior($id){
+        $q = "SELECT fecha_fin FROM licencias WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($fecha_fin);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $fecha_fin;    
+            }
+        }
+            return false;
+    }
+
     public function updateFechaFin($id_licencia, $fecha_fin){
 
         $q = "UPDATE licencias SET fecha_fin = ? WHERE id_licencia = ?";
@@ -120,12 +181,26 @@ INNER JOIN persona p ON l.id_persona = p.id_persona
     
     }
 
+    public function getEstadoAnterior($id){
+        $q = "SELECT estado FROM licencias WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($estado);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $estado;
+            }
+        }
+            return false;
+    }
+
     public function updateEstado($id_licencia, $estado){
 
         $q = "UPDATE licencias SET estado = ? WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $query->bind_param('dd', $estado, $id_licencia);
+        $query->bind_param('sd', $estado, $id_licencia);
 
         if ($query->execute()){
           return true;
@@ -134,6 +209,22 @@ INNER JOIN persona p ON l.id_persona = p.id_persona
             return false;
         }
     
+    }
+
+    public function getTipoLicenciaAnterior($id){
+        $q = "SELECT descripcion FROM tipo_licencia tl
+        INNER JOIN licencias l ON l.id_tipo_licencia = tl.id_tipo_licencia
+        WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($descripcion);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $descripcion;
+            }
+        }
+            return false;
     }
 
     public function updateTipoLicencia($id_licencia, $id_tipo_licencia){

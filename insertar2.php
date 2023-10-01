@@ -20,7 +20,7 @@ $l = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $estado, $id_tipo_lice
 $usuario = unserialize($_SESSION['usuario']);
 
 
-if($rl->agregar($l, $usuario)) {
+if($rl->agregarSecretario($l, $usuario)) {
     $redirigir = 'home.php?mensaje=Licencia agregada';
 } else {
 	$redirigir = 'home.php?mensaje=Error al agregar';

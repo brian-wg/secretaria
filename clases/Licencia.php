@@ -5,15 +5,15 @@ class Licencia{
 	protected $fecha_inicio;
 	protected $fecha_fin;
     protected $estado;
-
 	
 
-	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado="Pendiente"
-        , $id=null){
+	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado="Pendiente", $tipo_licencia, $id=null){
 
         $this->fecha_inicio = $fecha_inicio;
 		$this->fecha_fin = $fecha_fin;
+        $this->id_persona = $id_persona;
         $this->estado = $estado;
+        $this->id_tipo_licencia = $tipo_licencia;
         $this->id= $id;
 		
 	}
@@ -30,8 +30,8 @@ class Licencia{
     public function getEstado(){
         return $this->estado;
     }
-    public function getIdTipoLicencia(){
-        return $this->tipo_licencia;
+    public function getTipoLicencia(){
+        return $this->id_tipo_licencia;
     }
     public function getId(){
         return $this->id;
@@ -45,6 +45,9 @@ class Licencia{
     public function setEstado($estado){
         $this->estado = $estado;
     }
+    public function setTipoLicencia($id_tipo_licencia){
+        $this->id_tipo_licencia = $id_tipo_licencia;
+    }    
     
     
 }

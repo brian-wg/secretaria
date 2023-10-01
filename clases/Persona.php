@@ -31,10 +31,10 @@ class Persona{
         $this->rol = $rol;
 	}
 
-	public function getId() {
+	public function getIdUsuario() {
 		return $this->id;
 	}
-    public function setId($id) {
+    public function setIdUsuario($id) {
     	 $this->id = $id;
     }
     public function getUsuario() {
