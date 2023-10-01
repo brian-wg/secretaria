@@ -75,7 +75,7 @@ private static $conexion = null;
         }
     }
 
-    public function getLicencias(Persona $usuario)
+    public function getLicenciasDocente(Persona $usuario)
     {
         $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
@@ -102,7 +102,7 @@ private static $conexion = null;
         $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
-            WHERE p.id_persona = ?";
+            WHERE l.estado = ?";
         $query = self::$conexion->prepare($q);
         $id = $usuario->getIdUsuario();
         $query->bind_param('d', $id);
