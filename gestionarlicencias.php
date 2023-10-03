@@ -13,13 +13,14 @@ if (isset($_SESSION['usuario'])) {
     $usuario = unserialize($_SESSION['usuario']);
 
     $rl = new RepositorioLicencia();
-    $licencias = $rl->getLicencias($usuario);
+    $estado = "pendiente";
+    $licencias = $rl->getLicenciasSecretarioPendiente($estado);
     $nomApe = $usuario->getNombreApellido();
 
 
 } else {
     
-    header('Location: index.php');
+    header('Location: LoginModuloSecretaria.php');
 }
 
 ?>
@@ -37,7 +38,6 @@ if (isset($_SESSION['usuario'])) {
     <body class="text-center">
      <h1 class="h3 mb-3 fw-normal" id="titulo">Gesion de licencias</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
-     <h5>Hola <?php echo $nomApe;?></h4>
 
     <div class="container mt-3">
     <div class="row"> 
@@ -47,12 +47,15 @@ if (isset($_SESSION['usuario'])) {
                 <table class="table" >
                     <thead class="table-success table-striped" >
                         <tr>
-                            <th>id</th>
                             <th>fecha inicio</th>
                             <th>fecha fin</th>
                             <th>docente</th>
                             <th>estado</th>
                             <th>tipo licencia</th>
+                            <th>Acciones</th>
+                            <th></th>
+                            <th></th>
+
                         </tr>
                     </thead>
 
@@ -61,12 +64,13 @@ if (isset($_SESSION['usuario'])) {
 
 // imprimo el total de los productos contados anteriormente almacenados
 // echo "<h3>Total de productos de '".$usuario->getNomAp()."': ".$productos_totales."</h3>";
-
 foreach ($licencias as $l) {
-    echo '<tr><td>'.$l->getId().'</td><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$nomApe.'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
+    echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
     echo '<td><a href="actualizar.php?id='.$l->getId().'"';
     echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="delete.php?id='.$l->getId().'" class="btn btn-danger">Eliminar</a></td></tr>';
+    echo '<td><a href="delete.php?id='.$l->getId().'" class="btn btn-danger">Aprobar</a></td></tr>';
+    echo '<td><a href="actualizar.php?id='.$l->getId().'"';
+    echo ' class="btn btn-info">Desaprobar</a></td>';
 }?>
 
 

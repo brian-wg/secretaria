@@ -5,9 +5,10 @@ class Licencia{
 	protected $fecha_inicio;
 	protected $fecha_fin;
     protected $estado;
+    protected $id_persona;
 	
 
-	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado="Pendiente", $tipo_licencia, $id=null){
+	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado, $tipo_licencia, $id=null){
 
         $this->fecha_inicio = $fecha_inicio;
 		$this->fecha_fin = $fecha_fin;

@@ -21,9 +21,9 @@ $usuario = unserialize($_SESSION['usuario']);
 
 
 if($rl->agregarSecretario($l, $usuario)) {
-    $redirigir = 'home.php?mensaje=Licencia agregada';
+    $redirigir = 'homeSecretario.php?mensaje=Licencia agregada';
 } else {
-	$redirigir = 'home.php?mensaje=Error al agregar';
+	$redirigir = 'homeSecretario.php?mensaje=Error al agregar';
 	
 }
 header('Location: '.$redirigir);

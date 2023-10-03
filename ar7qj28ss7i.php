@@ -8,7 +8,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
                           $_POST['situacion_revista'], $_POST['fecha_toma_posicion'],
                           $_POST['clave'], $_POST['rol']);
     if( $result[0] === true ) {
-        $redirigir = 'home.php?mensaje='.$result[1];
+        $redirigir = 'homeSecretario.php?mensaje='.$result[1];
     } else {
         $redirigir = 'ar7qj28ss7i.php?mensaje='.$result[1];
     }

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Panel Docentes</title>
+    <title>Modulo Secretaria</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
@@ -77,7 +77,7 @@
     
 <main class="form-signin w-100 m-auto">
   <form action="login.php" method="post">
-    <h1 class="h3 mb-3 fw-normal">Panel Docentes</h1><br>	
+    <h1 class="h3 mb-3 fw-normal">Modulo Secretaria</h1><br>	
     
     <h2 class="h3 mb-3 fw-normal" style="color:gray">Ingrese con su cuenta</h1>
 
@@ -98,8 +98,8 @@
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>	
-    <a href= "ar7qj28ss7i.php">Crear cuenta</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+    
+    <p class="mt-5 mb-3 text-muted">&copy;2023</p>
   </form>
 </main>
 
