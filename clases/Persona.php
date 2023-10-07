@@ -2,7 +2,8 @@
 
 class Persona{
 
-	protected $id_persona;
+	protected $id;
+    protected $usuario;
 	protected $nombre;
 	protected $apellido;
     protected $dni;
@@ -13,11 +14,12 @@ class Persona{
     protected $fecha_toma_posicion;
     protected $rol;
 
-	public function __construct ($nombre, $apellido, $dni,
+	public function __construct ($nombre_usuario, $nombre, $apellido, $dni,
     $email, $telefono, $domicilio, $situacion_revista, $fecha_toma_posicion,
-     $rol, $id_persona = null){
+     $rol, $id = null){
 
-		$this->id_persona = $id_persona;
+		$this->id = $id;
+        $this->nombre_usuario = $nombre_usuario;
 		$this->nombre = $nombre;
 		$this->apellido = $apellido;
         $this->dni = $dni;
@@ -29,11 +31,14 @@ class Persona{
         $this->rol = $rol;
 	}
 
-	public function getIdPersona() {
-		return $this->id_persona;
+	public function getIdUsuario() {
+		return $this->id;
 	}
-    public function setIdPersona($id) {
-    	$this->id = $id;
+    public function setIdUsuario($id) {
+    	 $this->id = $id;
+    }
+    public function getUsuario() {
+        return $this->nombre_usuario;
     }
     public function getNombre() {
     	return $this->nombre;

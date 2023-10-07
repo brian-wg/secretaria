@@ -3,7 +3,7 @@
 require_once 'Persona.php';
 require_once '.env.php';
 
-class RepositorioLicenci{
+class RepositorioLicencia{
 
 private static $conexion = null;
 
@@ -27,29 +27,69 @@ private static $conexion = null;
     }
 
 
-
-    public function getLicencias(Persona $persona)
-    {
-        $q = "SELECT p.nombre, p.apellido, l.fecha_inicio, l.fecha_fin, l.anyo,
-      l.comision, uc.nombre, c.nombre 
-      FROM carreras c 
-      INNER JOIN docente_uc_carrera duc ON c.id_carrera = duc.id_carrera 
-      INNER JOIN uc uc ON duc.id_uc = uc.id_uc 
-      INNER JOIN persona p ON duc.id_persona = p.id_persona 
-      INNER JOIN licencias l ON p.id_persona = l.id_persona 
-      INNER JOIN tipo_licencia_has_licencias tll ON l.id_licencia = tll.id_licencia 
-      INNER JOIN tipo_licencia tl ON tll.id_tipo_licencia = tl.id_tipo_licencia 
-      WHERE p.id_persona = ?";
+ public function agregarSecretario(Licencia $l){ //Funcion para agregar licencia como secretario
+    
+        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia) VALUES (?, ?, ?, ?, ?)";
         $query = self::$conexion->prepare($q);
-        $id = $persona->getId();
+
+        $fecha_inicio = $l->getFechaInicio();
+        $fecha_fin = $l->getFechaFin();
+        $usuario_id = $l->getIdPersona(); 
+        $estado = $l->getEstado();
+        $id_tipo_licencia = $l->getTipoLicencia();
+        
+        if(!$query->bind_param("ssdsd", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia
+        )){
+            echo "fallo la consulta";
+        }
+
+        if ($query->execute()) {
+            return true;
+        } else {
+            die("Error en la ejecución de la consulta: " . $query->error);
+
+        }
+    }
+
+ public function agregarDocente(Licencia $l, $usuario){ //Funcion para agregar licencia como Docente
+    
+        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia) VALUES (?, ?, ?, ?, ?)";
+        $query = self::$conexion->prepare($q);
+
+        $fecha_inicio = $l->getFechaInicio();
+        $fecha_fin = $l->getFechaFin();
+        $usuario_id = $usuario->getIdUsuario(); 
+        $estado = $l->getEstado();
+        $id_tipo_licencia = $l->getTipoLicencia();
+        
+        if(!$query->bind_param("ssdsd", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia
+        )){
+            echo "fallo la consulta";
+        }
+
+        if ($query->execute()) {
+            return true;
+        } else {
+            die("Error en la ejecución de la consulta: " . $query->error);
+
+        }
+    }
+
+    public function getLicencias(Persona $usuario)
+    {
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
+            INNER JOIN licencias l ON p.id_persona = l.id_persona
+            INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
+            WHERE p.id_persona= ?";
+        $query = self::$conexion->prepare($q);
+        $id = $usuario->getIdUsuario();
         $query->bind_param('d', $id);
 
         if ($query->execute()){
-            $query->bind_result($nombre, $apellido, $fecha_fin, $fecha_fin, $anyo, $comision,
-            $uc, $carrera);
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);
             $lista_de_licencias = [];
             while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $anyo, $comision);                
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);                
             }
             return $lista_de_licencias;
         }
@@ -57,28 +97,149 @@ private static $conexion = null;
         
 
     }
+    // COMENTADO HASTA QUE SE DEBA USAR ESTE METODO. MUY PROBABLEMENTE PARA SER MODIFICADO
+    /*public function getLicenciasSecretario(Persona $usuario)
+    {
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
+            INNER JOIN licencias l ON p.id_persona = l.id_persona
+            INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
+            WHERE p.id_persona = ?";
+        $query = self::$conexion->prepare($q);
+        $id = $usuario->getIdUsuario();
+        $query->bind_param('d', $id);
 
+        if ($query->execute()){
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);
+            $lista_de_licencias = [];
+            while ($query->fetch()) {
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);                
+            }
+            return $lista_de_licencias;
+        }
+        return false;
+        
 
- public function agregar(Licencia $l, $persona){
-    
-        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, anyo, comision) VALUES (?, ?, ?, ?, ?)";
+    }*/
+
+    public function getFechaInicioAnterior($id){
+        $q = "SELECT fecha_inicio FROM licencias WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $persona = $persona->getIdPersona();
-        $fecha_inicio = $l->getFechaInicio();
-        $fecha_fin = $l->getFechaFin();    
-        $anyo = $l->getAnyo();
-        $comision = $l->getComision();
-        
-        if(!$query->bind_param("ssiiss", $fecha_inicio, $fecha_fin, $persona,
-        $anyo, $comision)){
-            echo "fallo la consulta";
+        $query->bind_param('d', $id);
+        $query->bind_result($fecha_inicio);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $fecha_inicio;    
+            }
         }
+            return false;
+    }
 
-        if ($query->execute()) {
-            return true;
-        } else {
+    public function updateFechaInicio($id_licencia, $fecha_inicio){
+
+        $q = "UPDATE licencias SET fecha_inicio = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('dd', $fecha_inicio, $id_licencia);
+
+        if ($query->execute()){
+          return true;
+        }
+        else {
             return false;
         }
+    
+    }
+
+    public function getFechaFinAnterior($id){
+        $q = "SELECT fecha_fin FROM licencias WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($fecha_fin);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $fecha_fin;    
+            }
+        }
+            return false;
+    }
+
+    public function updateFechaFin($id_licencia, $fecha_fin){
+
+        $q = "UPDATE licencias SET fecha_fin = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('dd', $fecha_fin, $id_licencia);
+
+        if ($query->execute()){
+          return true;
+        }
+        else {
+            return false;
+        }
+    
+    }
+
+    public function getEstadoAnterior($id){
+        $q = "SELECT estado FROM licencias WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($estado);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $estado;
+            }
+        }
+            return false;
+    }
+
+    public function updateEstado($id_licencia, $estado){
+
+        $q = "UPDATE licencias SET estado = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('sd', $estado, $id_licencia);
+
+        if ($query->execute()){
+          return true;
+        }
+        else {
+            return false;
+        }
+    
+    }
+
+    public function getTipoLicenciaAnterior($id){
+        $q = "SELECT descripcion FROM tipo_licencia tl
+        INNER JOIN licencias l ON l.id_tipo_licencia = tl.id_tipo_licencia
+        WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($descripcion);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $descripcion;
+            }
+        }
+            return false;
+    }
+
+    public function updateTipoLicencia($id_licencia, $id_tipo_licencia){
+
+        $q = "UPDATE licencias SET id_tipo_licencia = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('dd', $id_tipo_licencia, $id_licencia);
+
+        if ($query->execute()){
+          return true;
+        }
+        else {
+            return false;
+        }
+    
     }
 }
