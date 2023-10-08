@@ -13,13 +13,15 @@ if (isset($_SESSION['usuario'])) {
     $usuario = unserialize($_SESSION['usuario']);
 
     $id = $usuario->getIdUsuario();
-
-    
-
+    $rp = new RepositorioPersona();
+    $rol = "docente";
+    $docentes = $rp->listaDocentes($rol);
+    $rl = new RepositorioLicencia();
+    $licencias = $rl->listaTipoLicencias();
 
 } else {
     
-    header('Location: index.php');
+    header('Location: LoginModuloSecretaria.php');
 }
 ?>
 <!DOCTYPE html>
@@ -39,10 +41,28 @@ if (isset($_SESSION['usuario'])) {
     <div class="col-md-3">
         <h3>Cargar licencia</h3>
         <form action="insertar2.php" method="POST">
-    <input type="input" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
-    <input type="input" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
-    <input type="number" class="form-control mb-3" name="id_persona" placeholder="id_persona">
-    <input type="number" class="form-control mb-3" name="id_tipo_licencia" placeholder="id_tipo_licencia">
+    <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
+    <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
+    <label for="id_persona">Seleccione un docente</label>
+    <select name="id_persona" id="id_persona">
+    <?php 
+    foreach($docentes as $d) { 
+        echo "<option value='" . $d["id_persona"] . "'>" . $d["nombre"] . " " . $d["apellido"] . "</option>";
+    }
+    ?>
+
+
+    </select>
+    <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
+    <select name="id_tipo_licencia" id="id_tipo_licencia">
+    <?php 
+    foreach($licencias as $l) { 
+        echo "<option value='" . $l["id_tipo_licencia"] . "'>" . $l["descripcion"] . "</option>";
+    }
+    ?>
+
+
+    </select>
     <label for="file">Archivo</label>
     <input id="file "type="file">
     <button>Subir Archivo</button>

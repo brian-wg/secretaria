@@ -9,31 +9,46 @@ if (isset($_SESSION['usuario'])) {
     $usuario = unserialize($_SESSION['usuario']);
 } else {
     
-    header('Location: index.php');
+    header('Location: LoginModuloSecretaria.php');
 }
 
+$rl = new RepositorioLicencia();
 
-if (
-    !empty($_POST['id_licencia'])
-    && !empty($_POST['cantidad'])
-) {
-   $rl = new RepositorioLicencia();
+
+$redirigir = '';
+$actualizacionExitosa = false;
+
+
+if (!empty($_POST['fecha_inicio'])) {
+    if ($rl->updateFechaInicio($_POST['fecha_inicio'], $_POST['ultima_modificacion_por'], $_POST['id_licencia'])) {
+        $actualizacionExitosa = true;
+    }
+} 
+
+if (!empty($_POST['fecha_fin'])) {
+    if ($rl->updateFechaFin($_POST['fecha_fin'], $_POST['ultima_modificacion_por'], $_POST['id_licencia'])) {
+        $actualizacionExitosa = true;
+    }
+} 
+
+if (!empty($_POST['estado'])) {
+    if ($rl->updateEstado($_POST['estado'], $_POST['ultima_modificacion_por'], $_POST['id_licencia'])) {
+        $actualizacionExitosa = true;
+    }
+} 
+
+if (!empty($_POST['id_tipo_licencia'])) {
+    if ($rl->updateTipoLicencia($_POST['id_tipo_licencia'], $_POST['ultima_modificacion_por'], $_POST['id_licencia'])) {
+        $actualizacionExitosa = true;
+    }
+}
+
+if ($actualizacionExitosa) {
+    $redirigir = 'gestionarlicencias.php?mensaje=cambios guardados correctamente';
+} else {
     
-    if ($rl->updateFechaInicio($_POST['id_licencia'], $_POST['fecha_inicio'])) { 
-    $redirigir = 'home.php?mensaje=fecha inicio modificada correctamente';
-} else if ($rl->updateFechaFin($_POST['id_licencia'], $_POST['fecha_fin'])) { 
-    $redirigir = 'home.php?mensaje=fecha fin modificada correctamente';
-}else if ($rl->updateEstado($_POST['id_licencia'], $_POST['estado'])) { 
-    $redirigir = 'home.php?mensaje=estado modificado correctamente';
-}
-else if ($rl->updateTipoLicencia($_POST['id_licencia'], $_POST['id_tipo_licencia'])) { 
-    $redirigir = 'home.php?mensaje=tipo licencia modificado correctamente';
-}
-else
-{
     $mensaje = "No fue posible modificar la licencia.";
-    $redirigir = "home.php?mensaje=$mensaje";
-    
+    $redirigir = "gestionarlicencias.php?mensaje=$mensaje";
 }
-}
+
 header("Location: $redirigir");
