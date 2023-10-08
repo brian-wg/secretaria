@@ -77,19 +77,20 @@ private static $conexion = null;
 
     public function getLicenciasDocente(Persona $usuario)
     {
-        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.ultima_modificacion_por, l.id_licencia FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
             WHERE p.id_persona= ?";
         $query = self::$conexion->prepare($q);
         $id = $usuario->getIdUsuario();
+        $ultima_modificacion_por = $usuario->getNombreApellido();
         $query->bind_param('d', $id);
 
         if ($query->execute()){
-            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);
             $lista_de_licencias = [];
             while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion);                
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);                
             }
             return $lista_de_licencias;
         }
@@ -99,7 +100,7 @@ private static $conexion = null;
     }
     public function getLicenciasSecretario(Persona $usuario)
     {
-        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, FROM persona p
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
             WHERE l.estado = ?";
