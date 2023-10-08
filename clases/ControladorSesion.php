@@ -33,9 +33,6 @@ class ControladorSesion{
 			return [false, "No se pudo crear el usuario"];
 		} 
 		else {
-			$usuario->setIdUsuario($id);
-			session_start();
-			$_SESSION['usuario'] = serialize($usuario);
 			return [true, "Usuario creado con exito!"];
 		}
 	}
@@ -45,7 +42,7 @@ class ControladorSesion{
         $repo = new RepositorioLicencia();
         $licencia->setFechaInicio($fecha_inicio);
 
-        if ($repo->updateFechaInicio($fecha_inicio, $licencia)) {
+        if ($repo->updateFechaInicio($fecha_inicio, $ultima_modificacion_por, $licencia)) {
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
             return [true, "Datos actualizados correctamente"];
@@ -59,7 +56,7 @@ class ControladorSesion{
         $repo = new RepositorioLicencia();
         $licencia->setFechaFin($fecha_fin);
 
-        if ($repo->updateFechaFin($fecha_fin, $licencia)) {
+        if ($repo->updateFechaFin($fecha_fin, $ultima_modificacion_por, $licencia)) {
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
             return [true, "Datos actualizados correctamente"];
@@ -73,7 +70,7 @@ class ControladorSesion{
         $repo = new RepositorioLicencia();
         $licencia->setEstado($estado);
 
-        if ($repo->updateEstado($estado, $licencia)) {
+        if ($repo->updateEstado($estado, $ultima_modificacion_por, $licencia)) {
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
             return [true, "Datos actualizados correctamente"];
@@ -87,7 +84,7 @@ class ControladorSesion{
         $repo = new RepositorioLicencia();
         $licencia->setTipoLicencia($id_tipo_licencia);
 
-        if ($repo->update($id_tipo_licencia, $licencia)) {
+        if ($repo->updateTipoLicencia($id_tipo_licencia, $ultima_modificacion_por, $licencia)) {
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
             return [true, "Datos actualizados correctamente"];
@@ -95,5 +92,6 @@ class ControladorSesion{
             return [false, "Error al actualizar datos"];
         }
     }
+
 }
  ?>

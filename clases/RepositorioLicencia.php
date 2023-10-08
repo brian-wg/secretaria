@@ -120,21 +120,22 @@ private static $conexion = null;
 
     }
 
-public function getLicenciasSecretarioPendiente($estado)
+public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
     {
-        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.id_licencia FROM persona p
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.ultima_modificacion_por, l.id_licencia FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
             WHERE l.estado = ?";
         $query = self::$conexion->prepare($q);
         $estado = "pendiente";
+        $ultima_modificacion_por = $usuario->getNombreApellido();
         $query->bind_param('s', $estado);
 
         if ($query->execute()){
-            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia);
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);
             $lista_de_licencias = [];
             while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia);                
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);                
             }
             return $lista_de_licencias;
         }
@@ -157,12 +158,12 @@ public function getLicenciasSecretarioPendiente($estado)
             return false;
     }
 
-    public function updateFechaInicio($fecha_inicio, $id_licencia){
+    public function updateFechaInicio($fecha_inicio, $ultima_modificacion_por, $id_licencia){
 
-        $q = "UPDATE licencias SET fecha_inicio = ? WHERE id_licencia = ?";
+        $q = "UPDATE licencias SET fecha_inicio = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $a = $query->bind_param('sd', $fecha_inicio, $id_licencia);
+        $a = $query->bind_param('ssd', $fecha_inicio, $ultima_modificacion_por, $id_licencia);
 
         if ($query->execute()){
           return true;
@@ -187,12 +188,12 @@ public function getLicenciasSecretarioPendiente($estado)
             return false;
     }
 
-    public function updateFechaFin($fecha_fin, $id_licencia){
+    public function updateFechaFin($fecha_fin, $ultima_modificacion_por, $id_licencia){
 
-        $q = "UPDATE licencias SET fecha_fin = ? WHERE id_licencia = ?";
+        $q = "UPDATE licencias SET fecha_fin = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $query->bind_param('sd', $fecha_fin, $id_licencia);
+        $query->bind_param('ssd', $fecha_fin, $ultima_modificacion_por, $id_licencia);
 
         if ($query->execute()){
           return true;
@@ -217,12 +218,12 @@ public function getLicenciasSecretarioPendiente($estado)
             return false;
     }
 
-    public function updateEstado($estado, $id_licencia){
+    public function updateEstado($estado, $ultima_modificacion_por, $id_licencia){
 
-        $q = "UPDATE licencias SET estado = ? WHERE id_licencia = ?";
+        $q = "UPDATE licencias SET estado = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $query->bind_param('sd', $estado, $id_licencia);
+        $query->bind_param('ssd', $estado, $ultima_modificacion_por, $id_licencia);
 
         if ($query->execute()){
           return true;
@@ -249,12 +250,12 @@ public function getLicenciasSecretarioPendiente($estado)
             return false;
     }
 
-    public function updateTipoLicencia($id_tipo_licencia, $id_licencia){
+    public function updateTipoLicencia($id_tipo_licencia, $ultima_modificacion_por, $id_licencia){
 
-        $q = "UPDATE licencias SET id_tipo_licencia = ? WHERE id_licencia = ?";
+        $q = "UPDATE licencias SET id_tipo_licencia = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
         $query = self::$conexion->prepare($q);
 
-        $query->bind_param('dd', $id_tipo_licencia, $id_licencia);
+        $query->bind_param('dsd', $id_tipo_licencia, $ultima_modificacion_por, $id_licencia);
 
         if ($query->execute()){
           return true;
@@ -265,4 +266,35 @@ public function getLicenciasSecretarioPendiente($estado)
     
     }
 
-}
+    public function getUltimaModificacionPorAnterior($id){
+        $q = "SELECT ultima_modificacion_por FROM licencias WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param('d', $id);
+        $query->bind_result($ultima_modificacion_por);
+        if ($query->execute()){
+            if($query->fetch()){
+            return $ultima_modificacion_por;
+            }
+        }
+            return false;
+    }
+
+    public function listaTipoLicencias(){
+        $q = "SELECT id_tipo_licencia, descripcion FROM tipo_licencia";
+        $query = self::$conexion->prepare($q);
+
+        if ($query->execute()){
+            $query->bind_result($id_tipo_licencia, $descripcion);
+            $licencias = [];
+            while ($query->fetch()) {
+                $licencias[] = ["id_tipo_licencia" => $id_tipo_licencia, "descripcion" => $descripcion];
+            }
+        return $licencias;
+        }
+        return false;
+    } 
+
+
+    } 
+

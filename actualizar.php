@@ -15,8 +15,7 @@ if (isset($_SESSION['usuario'])) {
     
     $rl = new RepositorioLicencia();
     $estado = "Pendiente";
-    $licencias = $rl->getLicenciasSecretarioPendiente($estado);
-
+    $licencias = $rl->getLicenciasSecretarioPendiente($estado, $usuario);
 
 } else {
     
@@ -41,6 +40,7 @@ if (isset($_SESSION['usuario'])) {
         <h3>Editar Licencia</h3>
         <form action="actualizar2.php" method="POST">
     <input type="hidden" class="form-control mb-3" name="id_licencia" value="<?php echo $_GET['id']; ?>" readonly="">
+    <input type="hidden" class="form-control mb-3" name="ultima_modificacion_por" value="<?php echo $usuario->getNombreApellido(); ?>" readonly="">
     <input type="date" class="form-control mb-3" name="fecha_inicio" value="<?php echo $rl->getFechaInicioAnterior($_GET['id']); ?>">
     <input type="date" class="form-control mb-3" name="fecha_fin" value="<?php echo $rl->getFechaFinAnterior($_GET['id']); ?>">
     <label for="estado">Estado</label>
