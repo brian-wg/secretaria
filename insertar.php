@@ -65,7 +65,6 @@ if (isset($_SESSION['usuario'])) {
     </select>
     <label for="file">Archivo</label>
     <input id="file "type="file">
-    <button>Subir Archivo</button>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Cargar</button>	
       </form>
 

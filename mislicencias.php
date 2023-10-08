@@ -65,9 +65,8 @@ foreach ($licencias as $l) {
     echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
     echo '<td><a href="actualizar.php?id='.$l->getId().'"';
     echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="delete.php?id='.$l->getId().'" class="btn btn-danger">Aprobar</a></td></tr>';
-    echo '<td><a href="actualizar.php?id='.$l->getId().'"';
-    echo ' class="btn btn-info">Desaprobar</a></td>';
+    echo '<td></td></tr>';
+    echo '<td> </td></tr>';
 }?>
 
 
