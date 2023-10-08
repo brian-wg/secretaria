@@ -296,6 +296,36 @@ public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
         return false;
     } 
 
+    public function AprobarLicencia($estado, $ultima_modificacion_por, $id_licencia){
+        $q = "UPDATE licencias SET estado = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+        $estado = "Aceptada";
+
+         $query->bind_param('ssd', $estado, $ultima_modificacion_por, $id_licencia);
+         if ($query->execute()){
+          return true;
+        }
+        else {
+            return false;
+        }
+         
+    }
+
+    public function RechazarLicencia($estado, $ultima_modificacion_por, $id_licencia){
+        $q = "UPDATE licencias SET estado = ?, ultima_modificacion_por = ? WHERE id_licencia = ?";
+        $query = self::$conexion->prepare($q);
+        $estado = "Rechazada";
+
+         $query->bind_param('ssd', $estado, $ultima_modificacion_por, $id_licencia);
+         if ($query->execute()){
+          return true;
+        }
+        else {
+            return false;
+        }
+         
+    }
+
 
     } 
 
