@@ -325,6 +325,30 @@ public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
          
     }
 
-
+    public function historialCambiosLicencias($id_persona){
+        $q = "SELECT p.nombre, ll.id_editor, ll.fecha_cambio, ll.campo_modificado, ll.valor_anterior, ll.nuevo_valor,
+            l.estado, tl.descripcion
+            FROM logs_licencias ll
+            INNER JOIN licencias l ON ll.id_licencia = l.id_licencia
+            INNER JOIN persona p ON l.id_persona = p.id_persona
+            INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
+            WHERE p.id_persona =  ?";
+        $query = self::$conexion->prepare($q);
+        $query->bind_param('d', $id_persona);
+        if ($query->execute()){
+            $query->bind_result($nombre, $id_editor, $fecha_cambio, $campo_modificado, $valor_anterior, $nuevo_valor, $estado, $descripcion);
+            $logs = [];
+            while ($query->fetch()) {
+                $logs[] = ["nombre" => $nombre, "id_editor" => $id_editor,
+            "fecha_cambio" => $fecha_cambio, "campo_modificado" => $campo_modificado,
+            "valor_anterior" => $valor_anterior, "nuevo_valor" => $nuevo_valor,
+            "estado" => $estado, "descripcion" => $descripcion];
+            }
+        return $logs;
+        }
+        return false;
     } 
+
+
+} 
 

@@ -41,7 +41,7 @@ if (isset($_SESSION['usuario'])) {
 
         <a  href="insertar.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
         <a  href="gestionarlicencias.php" class="w-10 btn btn-lg btn-primary">Gestionar licencias</a>
-        <a  href="" class="w-10 btn btn-lg btn-primary">Historial cambios licencias</a>
+        <a  href="ConsultarHistorialLicencias.php" class="w-10 btn btn-lg btn-primary">Historial cambios licencias</a>
         <a  href="consultarLicenciaDocente.php" class="w-10 btn btn-lg btn-primary">Consultar licencias docente</a>
     </body>
 </html>
