@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header('Location: index.php?mensaje=se ha cerrado la sesion');
+header('Location: LoginModuloSecretaria.php?mensaje=se ha cerrado la sesion');
 #test

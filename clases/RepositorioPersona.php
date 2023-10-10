@@ -32,14 +32,14 @@ class RepositorioPersona{
 		$query->bind_param('s', $nombre_usuario);
 
 		if ($query->execute()){
-			$query->bind_result($id_persona, $usuario, $nombre, $apellido, $dni, $email, $telefono,
+			$query->bind_result($id_persona, $nombre_usuario, $nombre, $apellido, $dni, $email, $telefono,
 			$domicilio, $situacion_revista, $fecha_toma_posicion, $clave_encriptada, $rol   
 			);
 			if ($query->fetch()) {
 				if (password_verify($clave, $clave_encriptada)){
 
-					return new Persona($usuario, $nombre, $apellido, $dni, $email, $telefono,
-					$domicilio, $situacion_revista, $fecha_toma_posicion, $rol);
+					return new Persona($nombre_usuario, $nombre, $apellido, $dni, $email, $telefono,
+					$domicilio, $situacion_revista, $fecha_toma_posicion, $rol, $id_persona);
 				}
 			}
 		}
@@ -84,4 +84,20 @@ class RepositorioPersona{
 			die("Error en la ejecución de la consulta: " . $query->error);
 		}
 	}
+
+	public function listaDocentes($rol){
+		$q = "SELECT id_persona, nombre, apellido FROM persona WHERE rol = ?";
+		$query = self::$conexion->prepare($q);
+		$query->bind_param('s', $rol);
+
+		if ($query->execute()){
+			$query->bind_result($id_persona, $nombre, $apellido);
+			$docentes = [];
+			while ($query->fetch()) {
+				$docentes[] = ["id_persona" => $id_persona, "nombre" => $nombre, "apellido" => $apellido];
+			}
+		return $docentes;
+		}
+		return false;
+	} 
 }
