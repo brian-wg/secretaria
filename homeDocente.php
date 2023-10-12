@@ -38,7 +38,7 @@ if (isset($_SESSION['usuario'])) {
      <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Docente</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
-        <a  href="insertar.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
+        <a  href="insertarD.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
         <a  href="mislicencias.php" class="w-10 btn btn-lg btn-primary">Mis licencias</a>
     </body>
 </html>
