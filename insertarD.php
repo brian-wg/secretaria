@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
     <div class="row"> 
     <div class="col-md-3">
         <h3>Cargar licencia</h3>
-        <form action="insertar2.php" method="POST">
+        <form action="insertarD2.php" method="POST">
     <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
     <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
     <input type="hidden" name="id_persona" placeholder="<?php echo  $id?>">

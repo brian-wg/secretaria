@@ -40,6 +40,7 @@ if (isset($_SESSION['usuario'])) {
 
     <div class="container mt-3">
     <div class="row"> 
+    <p align="left"><a href="homeSecretario.php">Home</a></p>
     
 
             <div class="col-md-12">

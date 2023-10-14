@@ -22,6 +22,7 @@ if (isset($_SESSION['usuario'])) {
     header('Location: LoginModuloSecretaria.php');
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +41,7 @@ if (isset($_SESSION['usuario'])) {
 
     <div class="container mt-3">
     <div class="row"> 
+        <p align="left"><a href="homeDocente.php">Home</a></p>
     
 
             <div class="col-md-12">
@@ -63,8 +65,9 @@ if (isset($_SESSION['usuario'])) {
 
 foreach ($licencias as $l) {
     echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
-    echo '<td><a href="actualizar.php?id='.$l->getId().'"';
-    echo ' class="btn btn-info">Editar</a></td>';
+   echo '<td><a href="actualizarD.php?id='.$l->getArchivo().'"';
+      if ($l->getEstado() === "Pendiente") { 
+    echo ' class="btn btn-info">Editar</a></td>';}
     echo '<td></td></tr>';
     echo '<td> </td></tr>';
 }?>

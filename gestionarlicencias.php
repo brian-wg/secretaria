@@ -17,7 +17,6 @@ if (isset($_SESSION['usuario'])) {
     $licencias = $rl->getLicenciasSecretarioPendiente($estado, $usuario);
     $nomApe = $usuario->getNombreApellido();
 
-
 } else {
     
     header('Location: LoginModuloSecretaria.php');
@@ -41,6 +40,7 @@ if (isset($_SESSION['usuario'])) {
 
     <div class="container mt-3">
     <div class="row"> 
+    <p align="left"><a href="homeSecretario.php">Home</a></p>
     
 
             <div class="col-md-12">
@@ -60,16 +60,21 @@ if (isset($_SESSION['usuario'])) {
                     </thead>
 
     <tbody>
+
 <?php
 
 
 foreach ($licencias as $l) {
     echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
-    echo '<td><a href="actualizar.php?id='.$l->getId().'"';
+    echo '<td><a href="actualizar.php?id='.$l->getArchivo().'"';
     echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="aprobar.php?id='.$l->getId().'" class="btn btn-info">Aprobar</a></td></tr>';
-    echo '<td><a href="rechazar.php?id='.$l->getId().'"';
+    echo '<td><a href="aprobar.php?id='.$l->getArchivo().'" class="btn btn-info">Aprobar</a></td></tr>';
+    echo '<td><a href="rechazar.php?id='.$l->getArchivo().'"';
     echo ' class="btn btn-danger">Rechazar</a></td>';
+    if ($l->getUltimaModificacionPor() !=null) {
+    echo '<td><a href="'.$l->getUltimaModificacionPor().'" download>Descargar Archivo</a></td>';
+}
+
 }?>
 
 
