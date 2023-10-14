@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
     <div class="row"> 
     <div class="col-md-3">
         <h3>Cargar licencia</h3>
-        <form action="insertar2.php" method="POST">
+        <form action="insertar2.php" method="POST" enctype="multipart/form-data">
     <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
     <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
     <label for="id_persona">Seleccione un docente</label>
@@ -63,8 +63,8 @@ if (isset($_SESSION['usuario'])) {
 
 
     </select>
-    <label for="file">Archivo</label>
-    <input id="file "type="file">
+    <label for="archivo">Archivo</label>
+    <input id="archivo "type="file" name="archivo">
     <button class="w-100 btn btn-lg btn-primary" type="submit">Cargar</button>	
       </form>
 

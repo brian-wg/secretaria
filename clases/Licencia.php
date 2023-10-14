@@ -6,9 +6,11 @@ class Licencia{
 	protected $fecha_fin;
     protected $estado;
     protected $id_persona;
+    protected $archivo;
+
 	
 
-	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado, $tipo_licencia,$ultima_modificacion_por=null, $id=null){
+	public function __construct ($fecha_inicio, $fecha_fin, $id_persona, $estado, $tipo_licencia, $archivo=null, $ultima_modificacion_por=null, $id=null ){
 
         $this->fecha_inicio = $fecha_inicio;
 		$this->fecha_fin = $fecha_fin;
@@ -16,7 +18,9 @@ class Licencia{
         $this->estado = $estado;
         $this->id_tipo_licencia = $tipo_licencia;
         $this->ultima_modificacion_por = $ultima_modificacion_por;
+        $this->archivo = $archivo;
         $this->id= $id;
+
 		
 	}
 
@@ -41,6 +45,9 @@ class Licencia{
  
     public function getId(){
         return $this->id;
+    }
+    public function getArchivo(){
+        return $this->archivo;
     }
     public function setFechaInicio($fecha_inicio){
         $this->fecha_inicio = $fecha_inicio;

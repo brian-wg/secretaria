@@ -29,7 +29,7 @@ private static $conexion = null;
 
  public function agregarSecretario(Licencia $l){ //Funcion para agregar licencia como secretario
     
-        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia) VALUES (?, ?, ?, ?, ?)";
+        $q = "INSERT INTO licencias (fecha_inicio, fecha_fin, id_persona, estado, id_tipo_licencia, archivo) VALUES (?, ?, ?, ?, ?, ?)";
         $query = self::$conexion->prepare($q);
 
         $fecha_inicio = $l->getFechaInicio();
@@ -37,8 +37,9 @@ private static $conexion = null;
         $usuario_id = $l->getIdPersona(); 
         $estado = $l->getEstado();
         $id_tipo_licencia = $l->getTipoLicencia();
+        $archivo = $l->getArchivo();
         
-        if(!$query->bind_param("ssdsd", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia
+        if(!$query->bind_param("ssdsds", $fecha_inicio, $fecha_fin, $usuario_id, $estado, $id_tipo_licencia, $archivo
         )){
             echo "fallo la consulta";
         }
@@ -77,20 +78,19 @@ private static $conexion = null;
 
     public function getLicenciasDocente(Persona $usuario)
     {
-        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.ultima_modificacion_por, l.id_licencia FROM persona p
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.id_licencia FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
             WHERE p.id_persona= ?";
         $query = self::$conexion->prepare($q);
         $id = $usuario->getIdUsuario();
-        $ultima_modificacion_por = $usuario->getNombreApellido();
         $query->bind_param('d', $id);
 
         if ($query->execute()){
-            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia);
             $lista_de_licencias = [];
             while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);                
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia);                
             }
             return $lista_de_licencias;
         }
@@ -122,20 +122,19 @@ private static $conexion = null;
 
 public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
     {
-        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion, l.ultima_modificacion_por, l.id_licencia FROM persona p
+        $q = "SELECT l.fecha_inicio, l.fecha_fin, p.apellido, l.estado, tl.descripcion,  l.id_licencia, l.archivo FROM persona p
             INNER JOIN licencias l ON p.id_persona = l.id_persona
             INNER JOIN tipo_licencia tl ON l.id_tipo_licencia = tl.id_tipo_licencia
             WHERE l.estado = ?";
         $query = self::$conexion->prepare($q);
         $estado = "pendiente";
-        $ultima_modificacion_por = $usuario->getNombreApellido();
         $query->bind_param('s', $estado);
 
         if ($query->execute()){
-            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);
+            $query->bind_result($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia, $archivo);
             $lista_de_licencias = [];
             while ($query->fetch()) {
-                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $ultima_modificacion_por, $id_licencia);                
+                $lista_de_licencias[] = new Licencia($fecha_inicio, $fecha_fin, $apellido, $estado, $descripcion, $id_licencia, $archivo);                
             }
             return $lista_de_licencias;
         }
