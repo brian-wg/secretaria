@@ -17,9 +17,20 @@ $archivo = $_FILES['archivo'];
 
  if ($fecha_inicio === "" || $fecha_fin === "") {
 
-    $mensaje = "Por favor, seleccione fechas válidas.";
+    $mensaje = "Por favor, seleccione fecha inicio y fecha fin.";
     echo '<script>window.alert("' . $mensaje . '");</script>';
     echo '<script>window.location.href = "insertarD.php";</script>';
+    exit;
+}
+
+$fecha_inicio_obj = new DateTime($fecha_inicio);
+$fecha_fin_obj = new DateTime($fecha_fin);
+
+
+if ($fecha_fin_obj < $fecha_inicio_obj) {
+    $mensaje = "La fecha de fin no puede ser anterior a la fecha de inicio.";
+    echo '<script>window.alert("' . $mensaje . '");</script>';
+    echo '<script>window.location.href = "insertar.php";</script>';
     exit;
 }
 
@@ -41,6 +52,8 @@ else {
 
 $l = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $estado, $id_tipo_licencia, $archivo);
 
+var_dump($l);
+die();
 $usuario = unserialize($_SESSION['usuario']);
 
 
