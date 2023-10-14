@@ -17,9 +17,9 @@ $archivo = $_FILES['archivo'];
 
  if ($fecha_inicio === "" || $fecha_fin === "") {
 
-    $mensaje = "Por favor, seleccione fecha inicio y fecha fin";
+    $mensaje = "Por favor, seleccione fecha inicio y fecha fin.";
     echo '<script>window.alert("' . $mensaje . '");</script>';
-    echo '<script>window.location.href = "insertar.php";</script>';
+    echo '<script>window.location.href = "insertarD.php";</script>';
     exit;
 }
 
@@ -50,16 +50,17 @@ else {
 	$archivo = null;
 }
 
-
 $l = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $estado, $id_tipo_licencia, $archivo);
 
+var_dump($l);
+die();
 $usuario = unserialize($_SESSION['usuario']);
 
 
-if($rl->agregarSecretario($l, $usuario)) {
-    $redirigir = 'homeSecretario.php?mensaje=Licencia agregada';
+if($rl->agregarDocente($l, $usuario)) {
+    $redirigir = 'homeDocente.php?mensaje=Licencia agregada';
 } else {
-	$redirigir = 'homeSecretario.php?mensaje=Error al agregar';
+	$redirigir = 'homeDocente.php?mensaje=Error al agregar';
 	
 }
 header('Location: '.$redirigir);
