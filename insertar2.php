@@ -14,6 +14,15 @@ $estado = "Pendiente";
 $id_tipo_licencia = $_POST['id_tipo_licencia'];
 $archivo = $_FILES['archivo'];
 
+
+ if ($fecha_inicio === "" || $fecha_fin === "") {
+
+    $mensaje = "Por favor, seleccione fechas válidas.";
+    echo '<script>window.alert("' . $mensaje . '");</script>';
+    echo '<script>window.location.href = "insertar.php";</script>';
+    exit;
+}
+
 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
     $carpeta_destino = 'certificados/';
     $nombre_archivo = $_FILES['archivo']['name'];
@@ -21,6 +30,13 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     if (move_uploaded_file($_FILES['archivo']['tmp_name'], $carpeta_destino . $nombre_archivo)) {
         $archivo = $carpeta_destino . $nombre_archivo;
     }
+ else {
+ 	$archivo = null; 
+ }
+
+}
+else {
+	$archivo = null;
 }
 
 

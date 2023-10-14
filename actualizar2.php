@@ -46,7 +46,8 @@ if (!empty($_POST['id_tipo_licencia'])) {
 if ($actualizacionExitosa) {
     $redirigir = 'gestionarlicencias.php?mensaje=cambios guardados correctamente';
 } else {
-    
+
+
     $mensaje = "No fue posible modificar la licencia.";
     $redirigir = "gestionarlicencias.php?mensaje=$mensaje";
 }
