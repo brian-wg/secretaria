@@ -39,6 +39,7 @@ if (isset($_SESSION['usuario'])) {
 <div class="container mt-5">
     <div class="row"> 
     <div class="col-md-3">
+                <p align="left"><a href="homeDocente.php">Home</a></p>
         <h3>Cargar licencia</h3>
         <form action="insertarD2.php" method="POST">
     <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
@@ -46,6 +47,7 @@ if (isset($_SESSION['usuario'])) {
     <input type="hidden" name="id_persona" placeholder="<?php echo  $id?>">
     <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
     <select name="id_tipo_licencia" id="id_tipo_licencia">
+    <option value="" disabled selected>tipo licencia</option>
     <?php 
     foreach($licencias as $l) { 
         echo "<option value='" . $l["id_tipo_licencia"] . "'>" . $l["descripcion"] . "</option>";
