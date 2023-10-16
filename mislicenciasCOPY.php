@@ -8,29 +8,32 @@ require_once 'clases/RepositorioLicencia.php';
 
 
 
-
 if (isset($_SESSION['usuario'])) {
     
-    $usuario= unserialize($_SESSION['usuario']);
-    $nomApe = $usuario->getNombreApellido();
+    $usuario = unserialize($_SESSION['usuario']);
+    
 
+    $rl = new RepositorioLicencia();
+    $licencias = $rl->getLicenciasDocente($usuario);
+    $nomApe = $usuario->getNombreApellido();
 
 } else {
     
-    header('Location: loginscreen.php');
+    header('Location: LoginModuloSecretaria.php');
 }
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Panel Secretario</title>
+        <title> Mis Licencias</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">         
-        <link rel="stylesheet" href="estilosHomes.css">
+        <link rel="stylesheet" href="estilosHomes.css">        
     </head>
-    
+    </div>
     <body class="text-center">
         <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
             <div class="container-fluid">
@@ -60,20 +63,49 @@ if (isset($_SESSION['usuario'])) {
                     </ul>
                 </div>
             </div>
-        </nav> 
+        </nav>
         
-        <div class="container mt-2">
-        <p align="right"><a href="logout.php">Cerrar sesión</a></p>
-        <p align="left"><a href="ar7qj28ss7i.php">Crear usuario</a></p>
-        </div>
-        
-        <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Secretario</h1><br> 
+        <h1 class="h3 mb-3 fw-normal" id="titulo">Mis licencias</h1><br> 
         <h4>Hola <?php echo $nomApe;?></h4>
 
-        <a  href="insertar.php" class="w-10 btn btn-lg btn-warning">Agregar licencia</a>
-        <a  href="gestionarlicencias.php" class="w-10 btn btn-lg btn-warning">Gestionar licencias</a>
-        <a  href="ConsultarHistorialLicencias.php" class="w-10 btn btn-lg btn-warning">Historial cambios licencias</a>
-        <a  href="consultarLicenciaDocente.php" class="w-10 btn btn-lg btn-warning">Consultar licencias docente</a>
+        <div class="container mt-3">
+            <div class="row"> 
+                <p align="left"><a href="homeDocente.php">Home</a></p>
+    
+
+                <div class="col-md-12">
+                    <table class="table" >
+                        <thead class="table-success table-striped" >
+                            <tr>
+                                <th>fecha inicio</th>
+                                <th>fecha fin</th>
+                                <th>docente</th>
+                                <th>estado</th>
+                                <th>tipo licencia</th>
+                                <th>Acciones</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+        <tbody>
+
+<?php
+foreach ($licencias as $l) {
+    echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
+   echo '<td><a href="actualizarD.php?id='.$l->getArchivo().'"';
+      if ($l->getEstado() === "Pendiente") { 
+    echo ' class="btn btn-info">Editar</a></td>';}
+    echo '<td></td></tr>';
+    echo '<td> </td></tr>';
+}?>
+
+
+        </tbody>
+                    </table>
+                </div>
+            </div>  
+        </div>
 
         <footer>
             <div class="footer-top">
@@ -112,8 +144,7 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                 </div>
             </div>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        </footer> 
+        
     </body>
 </html>
