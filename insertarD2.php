@@ -52,9 +52,6 @@ else {
 
 $l = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $estado, $id_tipo_licencia, $archivo);
 
-var_dump($l);
-die();
-
 $usuario = unserialize($_SESSION['usuario']);
 
 
