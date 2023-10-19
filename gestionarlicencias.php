@@ -34,7 +34,7 @@ if (isset($_SESSION['usuario'])) {
         
     </head>
     </div>
-    <body>
+    <body class="text-center">
 
         <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
                     <div class="container-fluid">
