@@ -34,7 +34,7 @@ if (isset($_SESSION['usuario'])) {
         
     </head>
     </div>
-    <body class="text-center">
+    <body>
      <h1 class="h3 mb-3 fw-normal" id="titulo">Historial Licencia Consultada</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
