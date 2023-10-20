@@ -11,10 +11,10 @@ require_once 'clases/RepositorioLicencia.php';
 if (isset($_SESSION['usuario'])) {
     
     $usuario = unserialize($_SESSION['usuario']);
+    
 
     $rl = new RepositorioLicencia();
-    $estado = "pendiente";
-    $licencias = $rl->getLicenciasSecretarioPendiente($estado, $usuario);
+    $licencias = $rl->getLicenciasDocente($usuario);
     $nomApe = $usuario->getNombreApellido();
 
 } else {
@@ -22,11 +22,12 @@ if (isset($_SESSION['usuario'])) {
     header('Location: LoginModuloSecretaria.php');
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title> Gestionar Licencias</title>
+        <title> Mis Licencias</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
@@ -35,12 +36,12 @@ if (isset($_SESSION['usuario'])) {
     </head>
     </div>
     <body class="text-center">
-     <h1 class="h3 mb-3 fw-normal" id="titulo">Gesion de licencias</h1><br> 
+     <h1 class="h3 mb-3 fw-normal" id="titulo">Mis licencias</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
     <div class="container mt-3">
     <div class="row"> 
-    <p align="left"><a href="homeSecretario.php">Home</a></p>
+        <p align="left"><a href="homeDocente.php">Home</a></p>
     
 
             <div class="col-md-12">
@@ -60,21 +61,15 @@ if (isset($_SESSION['usuario'])) {
                     </thead>
 
     <tbody>
-
 <?php
-
 
 foreach ($licencias as $l) {
     echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
-    echo '<td><a href="actualizar.php?id='.$l->getArchivo().'"';
-    echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="aprobar.php?id='.$l->getArchivo().'" class="btn btn-info">Aprobar</a></td></tr>';
-    echo '<td><a href="rechazar.php?id='.$l->getArchivo().'"';
-    echo ' class="btn btn-danger">Rechazar</a></td>';
-    if ($l->getUltimaModificacionPor() !=null) {
-    echo '<td><a href="'.$l->getUltimaModificacionPor().'" download>Descargar Archivo</a></td>';
-}
-
+   echo '<td><a href="actualizarD.php?id='.$l->getArchivo().'"';
+      if ($l->getEstado() === "Pendiente") { 
+    echo ' class="btn btn-info">Editar</a></td>';}
+    echo '<td></td></tr>';
+    echo '<td> </td></tr>';
 }?>
 
 

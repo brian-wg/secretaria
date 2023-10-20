@@ -12,7 +12,6 @@ require_once 'clases/RepositorioLicencia.php';
 if (isset($_SESSION['usuario'])) {
     
     $usuario= unserialize($_SESSION['usuario']);
-   
     $nomApe = $usuario->getNombreApellido();
 
 
@@ -25,7 +24,7 @@ if (isset($_SESSION['usuario'])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Panel Docentes</title>
+        <title>Panel Docente</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
@@ -36,10 +35,10 @@ if (isset($_SESSION['usuario'])) {
     <p align="right"><a href="logout.php">Cerrar sesión</a></p>
     </div>
     <body class="text-center">
-     <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Secretario</h1><br> 
+     <h1 class="h3 mb-3 fw-normal" id="titulo">Panel Docente</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
-        <a  href="insertar.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
-        <a  href="gestionarlicencias.php" class="w-10 btn btn-lg btn-primary">Gestionar Licencias</a>
+        <a  href="insertarD.php" class="w-10 btn btn-lg btn-primary">Agregar licencia</a>
+        <a  href="mislicencias.php" class="w-10 btn btn-lg btn-primary">Mis licencias</a>
     </body>
 </html>

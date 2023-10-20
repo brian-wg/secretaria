@@ -11,10 +11,10 @@ require_once 'clases/RepositorioLicencia.php';
 if (isset($_SESSION['usuario'])) {
     
     $usuario = unserialize($_SESSION['usuario']);
-
+    
+    $id_persona = $_POST['id_persona'];
     $rl = new RepositorioLicencia();
-    $estado = "pendiente";
-    $licencias = $rl->getLicenciasSecretarioPendiente($estado, $usuario);
+    $logs = $rl->historialCambiosLicencias($id_persona);
     $nomApe = $usuario->getNombreApellido();
 
 } else {
@@ -26,7 +26,7 @@ if (isset($_SESSION['usuario'])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title> Gestionar Licencias</title>
+        <title>Historial Licencia Consultada</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
@@ -35,7 +35,7 @@ if (isset($_SESSION['usuario'])) {
     </head>
     </div>
     <body class="text-center">
-     <h1 class="h3 mb-3 fw-normal" id="titulo">Gesion de licencias</h1><br> 
+     <h1 class="h3 mb-3 fw-normal" id="titulo">Historial Licencia Consultada</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
     <div class="container mt-3">
@@ -47,34 +47,25 @@ if (isset($_SESSION['usuario'])) {
                 <table class="table" >
                     <thead class="table-success table-striped" >
                         <tr>
-                            <th>fecha inicio</th>
-                            <th>fecha fin</th>
-                            <th>docente</th>
-                            <th>estado</th>
-                            <th>tipo licencia</th>
-                            <th>Acciones</th>
-                            <th></th>
-                            <th></th>
+                            <th>Docente</th>
+                            <th>Editor</th>
+                            <th>Fecha cambio</th>
+                            <th>Campo modificado</th>
+                            <th>Valor anterior</th>
+                            <th>Nuevo valor</th>
+                            <th>Estado</th>
+                            <th>Tipo licencia</th>
 
                         </tr>
                     </thead>
 
     <tbody>
-
 <?php
 
-
-foreach ($licencias as $l) {
-    echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
-    echo '<td><a href="actualizar.php?id='.$l->getArchivo().'"';
-    echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="aprobar.php?id='.$l->getArchivo().'" class="btn btn-info">Aprobar</a></td></tr>';
-    echo '<td><a href="rechazar.php?id='.$l->getArchivo().'"';
-    echo ' class="btn btn-danger">Rechazar</a></td>';
-    if ($l->getUltimaModificacionPor() !=null) {
-    echo '<td><a href="'.$l->getUltimaModificacionPor().'" download>Descargar Archivo</a></td>';
-}
-
+foreach ($logs as $l) {
+    echo '<tr><td>'.$l['nombre'].'</td><td>'.$l['id_editor'].'</td><td>'.$l['fecha_cambio'].'</td><td>'.$l['campo_modificado'].'</td><td>'.$l['valor_anterior'].'</td><td>'.$l['nuevo_valor'].'</td><td>'.$l['estado'].'</td><td>'.$l['descripcion'].'</td>';
+    echo '<td></td></tr>';
+    echo '<td> </td></tr>';
 }?>
 
 

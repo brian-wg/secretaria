@@ -39,22 +39,12 @@ if (isset($_SESSION['usuario'])) {
 <div class="container mt-5">
     <div class="row"> 
     <div class="col-md-3">
-                <p align="left"><a href="homeSecretario.php">Home</a></p>
+                <p align="left"><a href="homeDocente.php">Home</a></p>
         <h3>Cargar licencia</h3>
-        <form action="insertar2.php" method="POST" enctype="multipart/form-data">
+        <form action="insertarD2.php" method="POST" enctype="multipart/form-data">
     <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
     <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
-    <label for="id_persona">Seleccione un docente</label>
-    <select name="id_persona" id="id_persona">
-    <option value="" disabled selected>Docentes</option>
-    <?php 
-    foreach($docentes as $d) { 
-        echo "<option value='" . $d["id_persona"] . "'>" . $d["nombre"] . " " . $d["apellido"] . "</option>";
-    }
-    ?>
-
-
-    </select>
+    <input type="hidden" name="id_persona" value="<?php echo  $id?>">
     <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
     <select name="id_tipo_licencia" id="id_tipo_licencia">
     <option value="" disabled selected>tipo licencia</option>
