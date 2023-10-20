@@ -105,6 +105,9 @@ footer {
     background: #3a3a3a;
     color: #fff;
     font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-bottom {

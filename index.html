@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywoard" content="Desarrollo de Software, informática">
+  <meta name="description" content="Terciario Urquiza">
+  <title>Terciario Urquiza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="./CSS/styleIndex.css">
+</head>
+
+<body>
+    <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="navbar-brand" href="index.html"><img src="./Imagenes/logo.png" class="img-fluid" width="200px" alt="LogoOrci"></div>
+          <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav m-lg-auto me-auto ml-2 mb-lg-0 align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active text-white" aria-current="page" href="">Historia</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="">Ingresantes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="">Carreras</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="">Calendario</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="">Contacto</a>
+              </li>            
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="LoginModuloSecretaria.php">Secretaría</a>
+              </li>            
+          </ul>
+        </div>
+      </div>
+    </nav>  
+  
+  <section class="section-flyer">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./Imagenes/flyer3.jpg" class="d-block w-100" alt="flyer3">
+        </div>
+        <div class="carousel-item">
+          <img src="./Imagenes/flyer1.jpg" class="d-block w-100" alt="flyer1">
+        </div>
+        <div class="carousel-item">
+          <img src="./Imagenes/flyer2.jpg" class="d-block w-100" alt="flyer2">
+        </div>
+      </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section> 
+    
+  <section class="servicios">
+    <div class="profile area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="im1"> <img src="./Imagenes/ds.jpg" alt="envios"></div>
+              <div class="main-text">
+                <h2>Desarrollo de Software</h2>
+                <p>Se basa en generar un profesional orientado en:
+
+                  Programación, Generación de las Bases de Datos y Desarrollo de Sistemas Informáticos.
+                  Se carga de traducir en la computadora las líneaas de código necesarias, implementación y testeos.</p>                      
+              </div>
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="im1"> <img src="./Imagenes/af.jpg" alt="confeccion"></div>
+                <div class="main-text">
+                  <h2>Analista Funcional</h2>
+                  <p>Su diseño apunta a generar un profesional preparado para:
+
+                    Análisis, Diseño e Implementación de Sistemas informáticos.
+                    Su función es la de analizar una problemática de la vida real y diseñar una solución informática para la misma. </p>                      
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="im1"> <img src="./Imagenes/it.jpg" alt="proteccion"></div>
+                <div class="main-text">
+                  <h2>ITI</h2>
+                  <p>El diseño curricular de esta carrera está orientado a generar un profesional con una sólida orientación en:
+
+                    Diseño, Instalación y Configuración de Redes Informáticas, Sistemas Operativos y Hardware en general.</p>                      
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <iframe class="mapaHome" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13393.336313140286!2d-60.6531546!3d-32.9421881!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab40ca7560ef%3A0xa4c4f77ae97baa0e!2sEscuela%20Superior%20De%20Comercio%20N%C2%B0%2049%20%22Justo%20Jose%20De%20Urquiza%22!5e0!3m2!1ses-419!2sar!4v1696892881744!5m2!1ses-419!2sar" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
+    <div class="footer-basic">
+      <footer>
+          <ul class="list-inline">
+              <li class="list-inline-item"><a href="#">Historia</a></li>
+              <li class="list-inline-item"><a href="#">Ingresantes</a></li>
+              <li class="list-inline-item"><a href="#">Carreras</a></li>
+              <li class="list-inline-item"><a href="#">Calendario</a></li>
+              <li class="list-inline-item"><a href="#">Contacto</a></li>
+              <li class="list-inline-item"><a href="#">Secretaría</a></li>
+          </ul>
+          <p class="copyright">TERCIARIO URQUIZA - Rosario, Santa Fe - Bv. Oroño 634 - 341 4721431 </p>
+      </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
