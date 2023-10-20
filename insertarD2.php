@@ -30,7 +30,7 @@ $fecha_fin_obj = new DateTime($fecha_fin);
 if ($fecha_fin_obj < $fecha_inicio_obj) {
     $mensaje = "La fecha de fin no puede ser anterior a la fecha de inicio.";
     echo '<script>window.alert("' . $mensaje . '");</script>';
-    echo '<script>window.location.href = "insertar.php";</script>';
+    echo '<script>window.location.href = "insertarD.php";</script>';
     exit;
 }
 
