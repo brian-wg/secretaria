@@ -72,7 +72,7 @@ if (isset($_SESSION['usuario'])) {
                 <div class="col-md-3">
                     <p align="left"><a href="homeDocente.php">Home</a></p>
                     <h3>Cargar licencia</h3>
-                        <form action="insertarD2.php" method="POST">
+                        <form action="insertarD2.php" method="POST" enctype="multipart/form-data">
                         <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
                         <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
                         <input type="hidden" name="id_persona" placeholder="<?php echo  $id?>">
