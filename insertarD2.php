@@ -41,9 +41,9 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     if (move_uploaded_file($_FILES['archivo']['tmp_name'], $carpeta_destino . $nombre_archivo)) {
         $archivo = $carpeta_destino . $nombre_archivo;
     }
- else {
- 	$archivo = null; 
- }
+else {
+    $archivo = null; 
+}
 
 }
 else {
