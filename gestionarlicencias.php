@@ -38,7 +38,7 @@ if (isset($_SESSION['usuario'])) {
 
         <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
                     <div class="container-fluid">
-                        <div class="navbar-brand" href="index.html"><img src="./Imagenes/logo.png" class="img-fluid" width="200px" alt="Terciario Urquiza"></div>
+                        <a href="homeSecretario.php"> <img src="./Imagenes/logo.png" class="img-fluid" width="200px" alt="LogoTerciarioUrquiza"> 
                         <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -64,7 +64,8 @@ if (isset($_SESSION['usuario'])) {
                             </ul>
                         </div>
                     </div>
-        </nav> 
+            </nav>
+
      <h1 class="h3 mb-3 fw-normal" id="titulo">Gesion de licencias</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 

@@ -18,7 +18,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
 
 <!doctype html>
 <html lang="en">
-  <head>
+    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -31,40 +31,39 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./CSS/styleLogin2.css">
 
-  </head>
-  
-  <body class="text-center">
-    <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
-                <div class="container-fluid">
-                    <div class="navbar-brand" href="index.html"><img src="./Imagenes/logo.png" class="img-fluid" width="200px" alt="LogoOrci"></div>
-                    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-lg-auto me-auto ml-2 mb-lg-0 align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="">Historia</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="">Ingresantes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="">Carreras</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="">Calendario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="">Contacto</a>
-                        </li>            
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="LoginModuloSecretaria.php">Secretaría</a>
-                        </li>            
-                        </ul>
-                    </div>
-                </div>
-      </nav>
+    </head>
 
-  
+    <body class="text-center">
+    <nav class="navbar p-0 navbar-expand-lg sticky-top navbar-light bg-dark">
+            <div class="container-fluid">
+                <a href="index.html"> <img src="./Imagenes/logo.png" class="img-fluid" width="200px" alt="LogoTerciarioUrquiza"> 
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-lg-auto me-auto ml-2 mb-lg-0 align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="">Historia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="">Ingresantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="">Carreras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="">Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="">Contacto</a>
+                    </li>            
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="LoginModuloSecretaria.php">Secretaría</a>
+                    </li>            
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
     <main>    
         <?php
         if (isset($_GET['mensaje'])) {
