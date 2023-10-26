@@ -16,6 +16,7 @@ if (isset($_SESSION['usuario'])) {
     $rl = new RepositorioLicencia();
     $estado = "Pendiente";
     $licencias = $rl->getLicenciasDocente($usuario);
+    $tipolicencia = $rl->listaTipoLicencias();
 
 } else {
     
@@ -73,12 +74,16 @@ if (isset($_SESSION['usuario'])) {
         <input type="date" class="form-control mb-3" name="fecha_inicio" value="<?php echo $rl->getFechaInicioAnterior($_GET['id']); ?>">
         <input type="date" class="form-control mb-3" name="fecha_fin" value="<?php echo $rl->getFechaFinAnterior($_GET['id']); ?>">
 
-        <select name="id_tipo_licencia" id="id_tipo_licencia">
-            <option value="">Tipo Licencia</option>
-            <option value="1">Enfermedad</option>
-            <option value="2">Imprevisto</option>
-            <option value="3">Duelo</option>
-        </select>
+        <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
+                        <select name="id_tipo_licencia" id="id_tipo_licencia">
+
+                        <?php 
+                        foreach($tipolicencia as $l) { 
+                            echo "<option value='" . $l["id_tipo_licencia"] . "'>" . $l["descripcion"] . "</option>";
+                        }
+                        ?>
+    
+                        </select>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Editar</button>
             </form>
                 </div>
