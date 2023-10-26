@@ -16,6 +16,7 @@ if (isset($_SESSION['usuario'])) {
     $rl = new RepositorioLicencia();
     $estado = "Pendiente";
     $licencias = $rl->getLicenciasSecretarioPendiente($estado, $usuario);
+    $tipolicencia = $rl->listaTipoLicencias();
 
 } else {
     
@@ -80,13 +81,16 @@ if (isset($_SESSION['usuario'])) {
                             <option value="Aceptada">Aceptada</option>
                             <option value="Rechazada">Rechazada</option>
                     </select>
-                    <label for="id_tipo_licencia"><?php echo $rl->getTipoLicenciaAnterior($_GET['id']); ?> </label>
-                    <select name="id_tipo_licencia" id="id_tipo_licencia">
-                            <option value="">Tipo Licencia</option>
-                            <option value="1">Enfermedad</option>
-                            <option value="2">Imprevisto</option>
-                            <option value="3">Duelo</option>
-                    </select>
+                    <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
+                        <select name="id_tipo_licencia" id="id_tipo_licencia">
+
+                        <?php 
+                        foreach($tipolicencia as $l) { 
+                            echo "<option value='" . $l["id_tipo_licencia"] . "'>" . $l["descripcion"] . "</option>";
+                        }
+                        ?>
+    
+                        </select>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Editar</button>	
             </form>
                 </div>

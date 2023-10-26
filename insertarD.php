@@ -78,7 +78,6 @@ if (isset($_SESSION['usuario'])) {
                         <input type="hidden" name="id_persona" placeholder="<?php echo  $id?>">
                         <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
                         <select name="id_tipo_licencia" id="id_tipo_licencia">
-                        <option value="" disabled selected>tipo licencia</option>
                         
                         <?php 
                         foreach($licencias as $l) { 
