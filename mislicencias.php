@@ -92,12 +92,16 @@ if (isset($_SESSION['usuario'])) {
 
 <?php
 foreach ($licencias as $l) {
-    echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
-   echo '<td><a href="actualizarD.php?id='.$l->getArchivo().'"';
-      if ($l->getEstado() === "Pendiente") { 
-    echo ' class="btn btn-info">Editar</a></td>';}
+    $fechaInicio = date('d/m/Y', strtotime($l->getFechaInicio()));
+    $fechaFin = date('d/m/Y', strtotime($l->getFechaFin()));
+
+    echo '<tr><td>' . $fechaInicio . '</td><td>' . $fechaFin . '</td><td>' . $l->getIdPersona() . '</td><td>' . $l->getEstado() . '</td><td>' . $l->getTipoLicencia() . '</td>';
+    echo '<td><a href="actualizarD.php?id=' . $l->getArchivo() . '"';
+    if ($l->getEstado() === "Pendiente") { 
+        echo ' class="btn btn-info">Editar</a></td>';
+    }
     echo '<td></td></tr>';
-    echo '<td> </td></tr>';
+    echo '<td></td></tr>';
 }?>
 
 
