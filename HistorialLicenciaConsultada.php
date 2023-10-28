@@ -90,13 +90,18 @@ if (isset($_SESSION['usuario'])) {
                     </thead>
 
     <tbody>
-<?php
-
+    <?php
 foreach ($logs as $l) {
-    echo '<tr><td>'.$l['nombre'].'</td><td>'.$l['id_editor'].'</td><td>'.$l['fecha_cambio'].'</td><td>'.$l['campo_modificado'].'</td><td>'.$l['valor_anterior'].'</td><td>'.$l['nuevo_valor'].'</td><td>'.$l['estado'].'</td><td>'.$l['descripcion'].'</td>';
+    $fechaCambio = date('d/m/Y', strtotime($l['fecha_cambio']));
+    $valorAnterior = date('d/m/Y', strtotime($l['valor_anterior']));
+    $nuevoValor = date('d/m/Y', strtotime($l['nuevo_valor']));
+
+    echo '<tr><td>' . $l['nombre'] . '</td><td>' . $l['id_editor'] . '</td><td>' . $fechaCambio . '</td><td>' . $l['campo_modificado'] . '</td><td>' . $valorAnterior . '</td><td>' . $nuevoValor . '</td><td>' . $l['estado'] . '</td><td>' . $l['descripcion'] . '</td>';
     echo '<td></td></tr>';
     echo '<td> </td></tr>';
-}?>
+}
+?>
+
 
 
  </tbody>

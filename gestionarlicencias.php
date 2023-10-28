@@ -66,15 +66,14 @@ if (isset($_SESSION['usuario'])) {
                     </div>
             </nav>
 
-     <h1 class="h3 mb-3 fw-normal" id="titulo">Gesion de licencias</h1><br> 
+     <h1 class="h3 mb-3 fw-normal" id="titulo">Gestión de licencias</h1><br> 
      <h4>Hola <?php echo $nomApe;?></h4>
 
-    <div class="container mt-3">
-    <div class="row"> 
-    <p align="left"><a href="homeSecretario.php">Home</a></p>
+        <div class="container mt-3">
+            <div class="row"> 
+                <p align="left"><a href="homeSecretario.php">Home</a></p>
     
-
-            <div class="col-md-12">
+            <div class="col-md-14">
                 <table class="table" >
                     <thead class="table-success table-striped" >
                         <tr>
@@ -86,7 +85,6 @@ if (isset($_SESSION['usuario'])) {
                             <th>Acciones</th>
                             <th></th>
                             <th></th>
-
                         </tr>
                     </thead>
 
@@ -96,12 +94,21 @@ if (isset($_SESSION['usuario'])) {
 
 
 foreach ($licencias as $l) {
-    echo '<tr><td>'.$l->getFechaInicio().'</td><td>'.$l->getFechaFin().'</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
+
+    $fechaInicio = $l->getFechaInicio();
+    $fechaFin = $l->getFechaFin();
+
+    // Formatea las fechas al formato 'dd/mm/yyyy'.
+    $fechaInicioFormateada = date('d/m/Y', strtotime($fechaInicio));
+    $fechaFinFormateada = date('d/m/Y', strtotime($fechaFin));
+
+
+    echo '<tr><td>' . $fechaInicioFormateada . '</td><td>' . $fechaFinFormateada . '</td><td>'.$l->getIdPersona().'</td><td>'.$l->getEstado().'</td><td>'.$l->getTipoLicencia().'</td>';
     echo '<td><a href="actualizar.php?id='.$l->getArchivo().'"';
     echo ' class="btn btn-info">Editar</a></td>';
-    echo '<td><a href="aprobar.php?id='.$l->getArchivo().'" class="btn btn-info">Aprobar</a></td></tr>';
+    echo '<td><a href="aprobar.php?id='.$l->getArchivo().'" class="btn btn-info">Aprobar</a></td>';
     echo '<td><a href="rechazar.php?id='.$l->getArchivo().'"';
-    echo ' class="btn btn-danger">Rechazar</a></td>';
+    echo ' class="btn btn-danger">Rechazar</a></td></tr>';
     if ($l->getUltimaModificacionPor() !=null) {
     echo '<td><a href="'.$l->getUltimaModificacionPor().'" download>Descargar Archivo</a></td>';
 }
@@ -115,19 +122,6 @@ foreach ($licencias as $l) {
         </div>  
         </div>
 
-        <div class="footer-basic">
-        <footer>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Historia</a></li>
-                <li class="list-inline-item"><a href="#">Ingresantes</a></li>
-                <li class="list-inline-item"><a href="#">Carreras</a></li>
-                <li class="list-inline-item"><a href="#">Calendario</a></li>
-                <li class="list-inline-item"><a href="#">Contacto</a></li>
-                <li class="list-inline-item"><a href="#">Secretaría</a></li>
-            </ul>
-            <p class="copyright">TERCIARIO URQUIZA - Rosario, Santa Fe - Bv. Oroño 634 - 341 4721431 </p>
-        </footer>
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
