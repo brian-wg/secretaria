@@ -50,10 +50,23 @@ else {
 	$archivo = null;
 }
 
+$superpuesta = $rl->verificarSuperposicion($fecha_inicio, $fecha_fin, $id_persona);
+
+
+if ($superpuesta>0) {
+    $mensaje = "Ya existe una licencia que se superpone con las fechas seleccionadas.";
+    echo '<script>window.alert("' . $mensaje . '");</script>';
+    echo '<script>window.location.href = "insertar.php";</script>';
+    exit;
+}
+
+
 
 $l = new Licencia($fecha_inicio, $fecha_fin, $id_persona, $estado, $id_tipo_licencia, $archivo);
 
+
 $usuario = unserialize($_SESSION['usuario']);
+
 
 
 if($rl->agregarSecretario($l, $usuario)) {

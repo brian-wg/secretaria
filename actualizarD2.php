@@ -43,6 +43,16 @@ if (!empty($_POST['id_tipo_licencia'])) {
     }
 }
 
+$superpuesta = $rl->verificarSuperposicion($_POST['fecha_inicio'], $_POST['fecha_fin'], $rl->buscarPropietarioLicencia($_POST['id_licencia']));
+
+
+if ($superpuesta>0) {
+    $mensaje = "Ya existe una licencia que se superpone con las fechas seleccionadas.";
+    echo '<script>window.alert("' . $mensaje . '");</script>';
+    echo '<script>window.location.href = "actualizarD.php";</script>';
+    exit;
+}
+
 if ($actualizacionExitosa) {
     $redirigir = 'mislicencias.php?mensaje=cambios guardados correctamente';
 } else {

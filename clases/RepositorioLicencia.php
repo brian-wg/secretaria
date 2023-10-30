@@ -348,6 +348,36 @@ public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
         return false;
     } 
 
+public function verificarSuperposicion($fecha_inicio, $fecha_fin, $id_persona) {
+    $q = "SELECT COUNT(*) as total FROM licencias WHERE id_persona = ? AND ((fecha_inicio BETWEEN ? AND ?) OR (fecha_fin BETWEEN ? AND ?))";
+    $query = self::$conexion->prepare($q);
+    $query->bind_param('dssss', $id_persona, $fecha_inicio, $fecha_fin, $fecha_inicio, $fecha_fin); 
+    $query->execute();
+
+    $resultado = $query->get_result();
+
+    $fila = $resultado->fetch_assoc();
+
+    $total = $fila['total'];
+
+    return $total;
+}
+
+
+public function buscarPropietarioLicencia($id_licencia) {
+    $q = "SELECT id_persona AS propietario FROM licencias WHERE id_licencia = ?; ";
+    $query = self::$conexion->prepare($q);
+    $query->bind_param('d', $id_licencia); 
+    $query->execute();
+
+    $resultado = $query->get_result();
+    $fila = $resultado->fetch_assoc();
+
+    $propietario = $fila['propietario'];
+
+    return $propietario;
+}
+
 
 } 
 

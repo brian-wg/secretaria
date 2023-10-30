@@ -75,7 +75,7 @@ if (isset($_SESSION['usuario'])) {
                         <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
                         <label for="id_persona">Seleccione un docente</label>
                         <select name="id_persona" id="id_persona">
-                        <option value="" disabled selected>Docentes</option>
+                        
     
                         <?php 
                         foreach($docentes as $d) { 
