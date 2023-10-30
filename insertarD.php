@@ -75,7 +75,7 @@ if (isset($_SESSION['usuario'])) {
                         <form action="insertarD2.php" method="POST" enctype="multipart/form-data">
                         <input type="date" class="form-control mb-3" name="fecha_inicio" placeholder="fecha_inicio">
                         <input type="date" class="form-control mb-3" name="fecha_fin" placeholder="fecha_fin">
-                        <input type="hidden" name="id_persona" placeholder="<?php echo  $id?>">
+                        <input type="hidden" name="id_persona" value="<?php echo  $id?>">
                         <label for="id_tipo_licencia">Seleccione tipo de licencia</label>
                         <select name="id_tipo_licencia" id="id_tipo_licencia">
                         
