@@ -349,9 +349,13 @@ public function getLicenciasSecretarioPendiente($estado, Persona $usuario)
     } 
 
 public function verificarSuperposicion($fecha_inicio, $fecha_fin, $id_persona) {
-    $q = "SELECT COUNT(*) as total FROM licencias WHERE id_persona = ? AND ((fecha_inicio BETWEEN ? AND ?) OR (fecha_fin BETWEEN ? AND ?))";
+        $q = "SELECT COUNT(*) as total FROM licencias WHERE id_persona = ? AND (
+        (fecha_inicio BETWEEN ? AND ?) OR
+        (fecha_fin BETWEEN ? AND ?) OR
+        (fecha_inicio <= ? AND fecha_fin >= ?)
+  );";
     $query = self::$conexion->prepare($q);
-    $query->bind_param('dssss', $id_persona, $fecha_inicio, $fecha_fin, $fecha_inicio, $fecha_fin); 
+    $query->bind_param('dssssss', $id_persona, $fecha_inicio, $fecha_fin, $fecha_inicio, $fecha_fin, $fecha_inicio, $fecha_fin); 
     $query->execute();
 
     $resultado = $query->get_result();
